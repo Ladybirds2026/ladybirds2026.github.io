@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="format-detection" content="telephone=no,date=no,address=no,email=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>News &amp; Novità · Ladybirds Milano Synchro Academy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy:#0d1b3e; --navy2:#1e3a6e; --gold:#c9a227; --gold2:#e8c44a;
+      --white:#ffffff; --ice:#f5f7fc; --text:#1a1a2e; --gray:#64748b;
+      --border:#e2e8f0; --fd:'Playfair Display',serif; --ft:'Inter',sans-serif;
+    }
+    html { scroll-behavior:smooth; }
+    body { font-family:var(--ft); background:var(--white); color:var(--text); overflow-x:hidden; }
+
+    /* TOPBAR */
+    .topbar { position:fixed;top:0;left:0;right:0;z-index:301;background:var(--navy);height:34px;display:flex;align-items:center;justify-content:flex-end;padding:0 2.5rem;gap:1.2rem; }
+    .topbar a { color:rgba(255,255,255,.5);text-decoration:none;font-size:.6rem;font-weight:500;letter-spacing:.5px;display:flex;align-items:center;gap:.35rem;transition:color .2s; }
+    .topbar a:hover { color:#fff; }
+    .topbar-sep { color:rgba(255,255,255,.15); }
+    .topbar-et { color:var(--navy)!important;background:var(--gold);padding:.22rem .8rem;border-radius:3px;font-weight:700;font-size:.58rem;letter-spacing:1.2px;text-transform:uppercase; }
+    @media(max-width:960px){ .topbar{display:none;} }
+
+    /* NAV */
+    nav { position:fixed;top:34px;left:0;right:0;z-index:300;background:var(--white);height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;border-bottom:1px solid var(--border);box-shadow:0 2px 16px rgba(13,27,62,.08); }
+    .nav-logo { text-decoration:none; }
+    nav ul { list-style:none;display:flex; }
+    nav ul a { display:block;padding:0 1rem;line-height:64px;font-size:.62rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;color:var(--gray);border-bottom:3px solid transparent;transition:color .2s,border-color .2s; }
+    nav ul a:hover { color:var(--navy);border-bottom-color:var(--gold); }
+    nav ul a.active { color:var(--navy);font-weight:700;border-bottom-color:var(--gold); }
+
+    /* HERO */
+    .page-hero { margin-top:98px;background:linear-gradient(105deg,var(--navy) 0%,var(--navy2) 60%,#1a4a80 100%);padding:4rem 2.5rem 3.5rem;position:relative;overflow:hidden; }
+    .page-hero::before { content:'';position:absolute;top:-40px;right:-60px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(201,162,39,.12) 0%,transparent 70%);pointer-events:none; }
+    .page-hero-inner { max-width:1100px;margin:0 auto;position:relative;z-index:1; }
+    .page-hero h1 { font-family:var(--fd);font-size:clamp(2.4rem,5vw,4rem);color:#fff;line-height:1;margin-bottom:1rem; }
+    .page-hero h1 em { font-style:italic;color:var(--gold); }
+    .page-hero-sub { font-size:1rem;color:rgba(255,255,255,.7);max-width:600px;line-height:1.7; }
+    .page-hero-line { position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold2),var(--gold)); }
+
+    /* MAIN */
+    .main-section { max-width:1100px;margin:0 auto;padding:4rem 2.5rem; }
+
+    /* KICKER */
+    .kicker { display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem; }
+    .kicker span { font-size:.55rem;font-weight:700;letter-spacing:3.5px;text-transform:uppercase;color:var(--gold);padding:.3rem .8rem;border:1px solid rgba(201,162,39,.35);border-radius:2px; }
+    .kicker::after { content:'';flex:1;height:1px;background:var(--border); }
+
+    /* TAG */
+    .tag { display:inline-block;font-size:.52rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:.22rem .7rem;border-radius:2px;margin-bottom:.6rem; }
+    .tag-festa   { background:#c2185b;color:#fff; }
+    .tag-gare    { background:var(--navy);color:#fff; }
+    .tag-club    { background:#2e7d32;color:#fff; }
+    .tag-synchro { background:#6a1b9a;color:#fff; }
+    .tag-trophy  { background:var(--navy2);color:#fff; }
+    .tag-stage   { background:var(--gold);color:#fff; }
+    .tag-arrivo  { background:var(--gold);color:var(--navy); }
+
+    /* HERO ARTICLE */
+    .hero-article {
+      border-radius:16px;overflow:hidden;border:1px solid var(--border);
+      display:grid;grid-template-columns:1.2fr 1fr;
+      margin-bottom:3rem;
+      box-shadow:0 4px 24px rgba(13,27,62,.1);
+    }
+    .hero-article-img { position:relative;overflow:hidden;min-height:440px; }
+    .hero-article-img img { width:100%;height:100%;object-fit:cover;object-position:center top;display:block;transition:transform .4s; }
+    .hero-article:hover .hero-article-img img { transform:scale(1.03); }
+    .hero-article-img-overlay {
+      position:absolute;bottom:0;left:0;right:0;
+      background:linear-gradient(to top,rgba(13,27,62,.75) 0%,transparent 60%);
+      padding:1.5rem;
+    }
+    .hero-article-body { padding:2.5rem 2.8rem;display:flex;flex-direction:column;justify-content:center;background:var(--white); }
+    .hero-article-date { font-size:.65rem;color:var(--gray);margin-bottom:.5rem; }
+    .hero-article-title { font-family:var(--fd);font-size:2rem;color:var(--navy);line-height:1.15;margin-bottom:1rem; }
+    .hero-article-excerpt { font-size:.88rem;color:var(--gray);line-height:1.8;margin-bottom:1.2rem; }
+    .hero-article-quote {
+      border-left:3px solid var(--gold);padding-left:1rem;margin:1.2rem 0;
+      font-family:var(--fd);font-size:1rem;font-style:italic;color:var(--navy2);line-height:1.6;
+    }
+    .hero-article-cta { display:inline-block;margin-top:auto;font-size:.62rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--gold);text-decoration:none; }
+    .hero-article-cta:hover { color:var(--navy); }
+
+    /* NEWS GRID */
+    .news-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-bottom:4rem; }
+
+    .news-card { border-radius:12px;overflow:hidden;border:1px solid var(--border);background:var(--white);display:flex;flex-direction:column;transition:box-shadow .25s,transform .25s; }
+    .news-card:hover { box-shadow:0 8px 30px rgba(16,48,94,.12);transform:translateY(-2px); }
+    .news-card-img { height:200px;overflow:hidden;position:relative; }
+    .news-card-img img { width:100%;height:100%;object-fit:cover;object-position:center;display:block;transition:transform .4s; }
+    .news-card:hover .news-card-img img { transform:scale(1.05); }
+    .news-card-img-ph { width:100%;height:100%;display:flex;align-items:center;justify-content:center; }
+    .news-card-body { padding:1.4rem 1.6rem;flex:1;display:flex;flex-direction:column; }
+    .news-date { font-size:.63rem;color:var(--gray);margin-bottom:.4rem; }
+    .news-title { font-family:var(--fd);font-size:1.15rem;color:var(--navy);line-height:1.25;margin-bottom:.6rem; }
+    .news-excerpt { font-size:.78rem;color:var(--gray);line-height:1.75;flex:1; }
+    .news-cta { display:inline-block;margin-top:.9rem;font-size:.6rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gold);text-decoration:none; }
+    .news-cta:hover { color:var(--navy); }
+
+    /* WIDE CARD (2 col) */
+    .news-card-wide {
+      grid-column:span 2;
+      display:grid;grid-template-columns:1fr 1fr;
+      border-radius:12px;overflow:hidden;border:1px solid var(--border);background:var(--white);
+      transition:box-shadow .25s;
+    }
+    .news-card-wide:hover { box-shadow:0 8px 30px rgba(16,48,94,.12); }
+    .news-card-wide-img { overflow:hidden;position:relative;min-height:260px; }
+    .news-card-wide-img img { width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s; }
+    .news-card-wide:hover .news-card-wide-img img { transform:scale(1.04); }
+    .news-card-wide-body { padding:2rem 2.2rem;display:flex;flex-direction:column;justify-content:center; }
+
+    /* MET FULL-WIDTH CARD */
+    .news-card-met {
+      grid-column:1/-1;
+      display:grid;grid-template-columns:1fr 1fr;
+      border-radius:12px;overflow:hidden;border:1px solid var(--border);background:var(--white);
+      transition:box-shadow .25s;
+    }
+    .news-card-met:hover { box-shadow:0 8px 30px rgba(16,48,94,.12); }
+    .news-card-met-img { overflow:hidden;position:relative;min-height:240px; }
+    .news-card-met-img img { width:100%;height:100%;object-fit:cover;object-position:center top;display:block;transition:transform .4s; }
+    .news-card-met:hover .news-card-met-img img { transform:scale(1.04); }
+    .news-card-met-body { padding:2rem 2.2rem;display:flex;flex-direction:column;justify-content:center; }
+
+    /* IN ARRIVO */
+    .in-arrivo {
+      background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);
+      border-radius:14px;padding:2.5rem 3rem;margin-bottom:4rem;position:relative;overflow:hidden;
+    }
+    .in-arrivo::before { content:'';position:absolute;top:-60px;right:-60px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(201,162,39,.15) 0%,transparent 70%); }
+    .in-arrivo-inner { position:relative;z-index:1; }
+    .in-arrivo-label { font-size:.55rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem; }
+    .in-arrivo-title { font-family:var(--fd);font-size:1.6rem;color:#fff;margin-bottom:.5rem; }
+    .in-arrivo-sub { font-size:.85rem;color:rgba(255,255,255,.6);margin-bottom:1.8rem; }
+    .in-arrivo-items { display:flex;flex-direction:column;gap:.8rem; }
+    .in-arrivo-item { display:flex;align-items:center;gap:1.2rem;background:rgba(255,255,255,.06);border-radius:8px;padding:.9rem 1.2rem;border:1px solid rgba(255,255,255,.1); }
+    .in-arrivo-dot { width:10px;height:10px;border-radius:50%;background:var(--gold);flex-shrink:0;box-shadow:0 0 0 3px rgba(201,162,39,.25); }
+    .in-arrivo-item-text { flex:1; }
+    .in-arrivo-item-name { font-size:.85rem;font-weight:700;color:#fff; }
+    .in-arrivo-item-date { font-size:.7rem;color:rgba(255,255,255,.5);margin-top:.1rem; }
+    .in-arrivo-badge { font-size:.52rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:.2rem .65rem;border-radius:2px;background:rgba(201,162,39,.2);color:var(--gold);border:1px solid rgba(201,162,39,.35); }
+
+    /* CALENDARIO */
+    .calendar-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:4rem; }
+    .cal-month { border:1px solid var(--border);border-radius:10px;overflow:hidden; }
+    .cal-month-header { background:var(--navy);color:#fff;font-size:.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:.6rem 1rem; }
+    .cal-event { padding:.7rem 1rem;border-bottom:1px solid var(--border);display:flex;flex-direction:column;gap:.2rem; }
+    .cal-event:last-child { border-bottom:none; }
+    .cal-event-name { font-size:.75rem;font-weight:600;color:var(--navy); }
+    .cal-event-date { font-size:.62rem;color:var(--gray); }
+    .cal-event-tag { font-size:.5rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gold); }
+    .cal-empty { padding:1rem;font-size:.72rem;color:var(--gray);text-align:center;font-style:italic; }
+
+    /* NEWSLETTER */
+    .newsletter-box { background:var(--ice);border:1px solid var(--border);border-radius:14px;padding:3rem 2.5rem;text-align:center;margin-bottom:4rem;position:relative;overflow:hidden; }
+    .newsletter-box h3 { font-family:var(--fd);font-size:1.7rem;color:var(--navy);margin-bottom:.6rem; }
+    .newsletter-box p { font-size:.88rem;color:var(--gray);margin-bottom:1.8rem;line-height:1.7;max-width:500px;margin-left:auto;margin-right:auto; }
+    .newsletter-form { display:flex;gap:.8rem;max-width:480px;margin:0 auto; }
+    .newsletter-form input { flex:1;padding:.85rem 1.2rem;border:1.5px solid var(--border);border-radius:4px;font-size:.8rem;font-family:var(--ft);color:var(--text);outline:none;transition:border-color .2s; }
+    .newsletter-form input:focus { border-color:var(--gold); }
+    .newsletter-form button { padding:.85rem 1.8rem;background:var(--navy);color:#fff;font-size:.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border:none;border-radius:4px;cursor:pointer;transition:background .2s;white-space:nowrap;font-family:var(--ft); }
+    .newsletter-form button:hover { background:var(--navy2); }
+    .newsletter-note { font-size:.6rem;color:var(--gray);margin-top:.8rem; }
+
+    hr.divider { border:none;border-top:1px solid var(--border);margin:3rem 0; }
+
+    /* FOOTER */
+    footer { background:var(--navy);color:rgba(255,255,255,.7);padding:3.5rem 2.5rem 2rem; }
+    .ft-top { display:flex;justify-content:space-between;align-items:flex-start;gap:3rem;padding-bottom:2rem;border-bottom:1px solid rgba(255,255,255,.1);flex-wrap:wrap; }
+    .ft-sub { font-size:.63rem;color:rgba(255,255,255,.45); }
+    .ft-cf { font-size:.58rem;color:rgba(255,255,255,.3);margin-top:.25rem; }
+    .ft-nav { display:flex;gap:3.5rem;flex-wrap:wrap; }
+    .ft-col h5 { font-size:.57rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:.85rem; }
+    .ft-col ul { list-style:none;display:flex;flex-direction:column;gap:.45rem; }
+    .ft-col a { text-decoration:none;font-size:.74rem;color:rgba(255,255,255,.5);transition:color .2s; }
+    .ft-col a:hover { color:#fff; }
+    .ft-bot { display:flex;justify-content:space-between;align-items:center;padding-top:1.5rem;flex-wrap:wrap;gap:1rem; }
+    .ft-copy { font-size:.6rem;color:rgba(255,255,255,.3); }
+    .socials { display:flex;gap:.75rem; }
+    .s-btn { width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;text-decoration:none;color:rgba(255,255,255,.6);transition:border-color .2s,color .2s; }
+    .s-btn svg { width:20px;height:20px; }
+    .s-btn:hover { border-color:var(--gold);color:var(--gold); }
+
+    /* HAMBURGER */
+    .nav-burger { display:none;flex-direction:column;justify-content:center;gap:5px;background:none;border:none;cursor:pointer;padding:8px;margin-right:-.5rem; }
+    .nav-burger span { display:block;width:22px;height:2px;background:var(--navy);border-radius:2px;transition:all .3s; }
+    .mobile-nav { display:none;position:fixed;top:64px;left:0;right:0;z-index:299;background:var(--white);border-bottom:2px solid var(--gold);box-shadow:0 4px 20px rgba(13,27,62,.15); }
+    .mobile-nav ul { list-style:none; }
+    .mobile-nav ul li { border-bottom:1px solid var(--border); }
+    .mobile-nav ul a { display:block;padding:.95rem 1.5rem;font-size:.72rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;color:var(--navy); }
+    .mobile-nav ul a.active { color:var(--gold); }
+
+    @media(max-width:960px){
+      nav { top:0; }
+      nav ul { display:none; }
+      .nav-burger { display:flex; }
+      .mobile-nav.open { display:block; }
+      .page-hero { margin-top:64px; padding:2.5rem 1.5rem 2rem; }
+      .hero-article { grid-template-columns:1fr; }
+      .hero-article-img { min-height:260px; }
+      .news-grid { grid-template-columns:1fr 1fr; }
+      .news-card-wide { grid-column:span 2; grid-template-columns:1fr; }
+      .news-card-met { grid-template-columns:1fr; }
+      .calendar-grid { grid-template-columns:1fr 1fr; }
+      .main-section { padding:2.5rem 1.2rem; }
+      .in-arrivo { padding:1.8rem 1.4rem; margin-bottom:2.5rem; }
+      .in-arrivo-title { font-size:1.3rem; }
+      .kicker { margin-bottom:1.2rem; }
+    }
+    @media(max-width:600px){
+      .news-grid { grid-template-columns:1fr; }
+      .news-card-wide { grid-column:span 1; grid-template-columns:1fr; }
+      .news-card-met { grid-column:span 1; }
+      .news-card-wide-img { min-height:180px; }
+      .news-card-met-img { min-height:180px; }
+      .news-card-img { min-height:180px; }
+      .calendar-grid { grid-template-columns:1fr; }
+      .in-arrivo { padding:1.5rem 1.1rem; }
+      .in-arrivo-item { flex-wrap:wrap; gap:.5rem; }
+      .in-arrivo-badge { margin-left:1.6rem; }
+      .in-arrivo-item-date { font-size:.65rem; }
+      .page-hero { padding:2rem 1rem 1.5rem; }
+      .page-hero h1 { font-size:1.8rem; }
+      .page-hero-sub { font-size:.85rem; }
+      .main-section { padding:2rem 1rem; }
+      footer { padding:2.5rem 1.2rem 1.5rem; }
+      .ft-nav { gap:2rem; }
+      .ft-top { flex-direction:column; gap:1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <a href="https://www.facebook.com/566344623425742" target="_blank">📘 Facebook</a>
+  <span class="topbar-sep">|</span>
+  <a href="https://www.instagram.com/teamladybirds_milano_ita/" target="_blank">📷 Instagram</a>
+  <span class="topbar-sep">|</span>
+  <a href="mailto:info@ladybirds.it">✉️ info@ladybirds.it</a>
+  <span class="topbar-sep">|</span>
+  <a href="https://www.milanoeastertrophy.it" target="_blank" class="topbar-et">Milano Easter Trophy →</a>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="img/logo-ladybirds.jpg" alt="Ladybirds Milano Synchro Academy" style="height:48px;width:auto;border-radius:4px;display:block;">
+  </a>
+  <ul>
+    <li><a href="index.html#home" data-lang-key="nav_home">Home</a></li>
+    <li><a href="index.html#staff" data-lang-key="nav_staff">Staff</a></li>
+    <li><a href="index.html#teams" data-lang-key="nav_teams">Teams 2026–2027</a></li>
+    <li><a href="index.html#risultati" data-lang-key="nav_risultati">Risultati Gare</a></li>
+    <li><a href="stages.html" data-lang-key="nav_stage">Stage &amp; Camp</a></li>
+    <li><a href="news.html" class="active" data-lang-key="nav_news">News</a></li>
+    <li><a href="index.html#famiglia" data-lang-key="nav_lmsa">MY LMSA</a></li>
+  </ul>
+  <button id="lang-btn" onclick="setLang(currentLang==='it'?'en':'it')" style="background:none;border:1.5px solid var(--gold);color:var(--navy);font-size:.6rem;font-weight:700;letter-spacing:1.5px;padding:.3rem .7rem;border-radius:4px;cursor:pointer;font-family:var(--ft);">EN</button>
+  <button class="nav-burger" id="navBurger" aria-label="Menu" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-nav" id="mobileNav">
+  <ul>
+    <li><a href="index.html#home" onclick="closeNav()" data-lang-key="nav_home">Home</a></li>
+    <li><a href="index.html#staff" onclick="closeNav()" data-lang-key="nav_staff">Staff</a></li>
+    <li><a href="index.html#teams" onclick="closeNav()" data-lang-key="nav_teams">Teams 2026–2027</a></li>
+    <li><a href="index.html#risultati" onclick="closeNav()" data-lang-key="nav_risultati">Risultati Gare</a></li>
+    <li><a href="stages.html" onclick="closeNav()" data-lang-key="nav_stage">Stage &amp; Camp</a></li>
+    <li><a href="news.html" onclick="closeNav()" class="active" data-lang-key="nav_news">News</a></li>
+    <li><a href="index.html#famiglia" onclick="closeNav()" data-lang-key="nav_lmsa">MY LMSA</a></li>
+  </ul>
+  <div style="padding:.8rem 1.5rem;border-top:1px solid var(--border);">
+    <button class="lang-btn-mobile" onclick="setLang(currentLang==='it'?'en':'it');document.getElementById('mobileNav').classList.remove('open')" style="background:none;border:1.5px solid var(--gold);color:var(--navy);font-size:.65rem;font-weight:700;letter-spacing:1.5px;padding:.4rem 1rem;border-radius:4px;cursor:pointer;">IT / EN</button>
+  </div>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <h1 data-lang-key="news_hero_h1">News &amp; <em>Novità</em></h1>
+    <p class="page-hero-sub" data-lang-key="news_hero_sub">La vita di una squadra si racconta una storia alla volta.</p>
+  </div>
+  <div class="page-hero-line"></div>
+</div>
+
+<main class="main-section">
+
+  <!-- IN ARRIVO -->
+  <div class="kicker"><span data-lang-key="news_prossimamente_kicker">Prossimamente</span></div>
+  <div class="in-arrivo">
+    <div class="in-arrivo-inner">
+      <div class="in-arrivo-label" data-lang-key="news_in_arrivo_label">Stage &amp; Camp in arrivo</div>
+      <h2 class="in-arrivo-title" data-lang-key="news_in_arrivo_h2">I prossimi appuntamenti sul ghiaccio</h2>
+      <p class="in-arrivo-sub" data-lang-key="news_in_arrivo_sub">I posti si esauriscono in fretta. Tieni d'occhio questa pagina.</p>
+      <div class="in-arrivo-items">
+        <div class="in-arrivo-item">
+          <div class="in-arrivo-dot"></div>
+          <div class="in-arrivo-item-text">
+            <div class="in-arrivo-item-name" data-lang-key="news_corvara_name">Corvara Summer Camp 2026</div>
+            <div class="in-arrivo-item-date" data-lang-key="news_corvara_date">12 – 26 Luglio 2026 · Alta Badia, Dolomiti · Aperto a tutte le categorie</div>
+          </div>
+          <span class="in-arrivo-badge" style="background:rgba(192,57,43,.2);border-color:rgba(192,57,43,.5);color:#e74c3c;" data-lang-key="news_corvara_badge">Iscrizioni chiuse</span>
+        </div>
+        <div class="in-arrivo-item">
+          <div class="in-arrivo-dot" style="background:rgba(255,255,255,.2);box-shadow:none;"></div>
+          <div class="in-arrivo-item-text">
+            <div class="in-arrivo-item-name" style="color:rgba(255,255,255,.45);" data-lang-key="news_prossimo_name">Prossimo stage · Autunno 2026</div>
+            <div class="in-arrivo-item-date" data-lang-key="news_prossimo_date">Data e dettagli in definizione</div>
+          </div>
+          <span class="in-arrivo-badge" style="opacity:.35;" data-lang-key="news_prossimo_badge">In arrivo</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CALENDARIO GARE -->
+  <div class="kicker"><span data-lang-key="news_calendario_kicker">Calendario Gare 2026–2027</span></div>
+  <p style="font-size:.88rem;color:var(--gray);margin-bottom:2rem;line-height:1.7;" data-lang-key="news_calendario_p">Dove gareggeranno le Ladybirds, mese per mese. Aggiornato con le date FISG.</p>
+  <div class="calendar-grid">
+    <div class="cal-month"><div class="cal-month-header">Ottobre 2026</div><div class="cal-empty" data-lang-key="news_cal_empty">In attesa di calendario FISG</div></div>
+    <div class="cal-month">
+      <div class="cal-month-header">Novembre 2026</div>
+      <div class="cal-event">
+        <div class="cal-event-tag">Sincronizzato</div>
+        <div class="cal-event-name">Trento Cup 2026</div>
+        <div class="cal-event-date">📅 6 – 8 Novembre 2026</div>
+        <div class="cal-event-date">📍 Maccani Ice Arena · Trento (TN)</div>
+      </div>
+    </div>
+    <div class="cal-month">
+      <div class="cal-month-header">Dicembre 2026</div>
+      <div class="cal-event">
+        <div class="cal-event-tag">Sincronizzato · 1ª Gara Nazionale</div>
+        <div class="cal-event-name">1ª Gara Nazionale Sincronizzato</div>
+        <div class="cal-event-date">📅 5 Dicembre 2026</div>
+        <div class="cal-event-date">📍 Acinque Ice Arena · Varese (VA)</div>
+      </div>
+      <div class="cal-event">
+        <div class="cal-event-tag">Sincronizzato</div>
+        <div class="cal-event-name">Campionati Italiani Assoluti Senior</div>
+        <div class="cal-event-date">📅 17 – 20 Dicembre 2026</div>
+      </div>
+    </div>
+    <div class="cal-month"><div class="cal-month-header">Gennaio 2027</div><div class="cal-empty" data-lang-key="news_cal_empty">In attesa di calendario FISG</div></div>
+    <div class="cal-month"><div class="cal-month-header">Febbraio 2027</div><div class="cal-empty" data-lang-key="news_cal_empty">In attesa di calendario FISG</div></div>
+    <div class="cal-month"><div class="cal-month-header">Marzo 2027</div><div class="cal-empty" data-lang-key="news_cal_empty">In attesa di calendario FISG</div></div>
+    <div class="cal-month"><div class="cal-month-header">Aprile 2027</div><div class="cal-empty" data-lang-key="news_cal_empty">In attesa di calendario FISG</div></div>
+    <div class="cal-month"><div class="cal-month-header">Maggio 2027</div><div class="cal-empty" data-lang-key="news_cal_empty">In attesa di calendario FISG</div></div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- NEWS IN ORDINE CRONOLOGICO -->
+  <div class="kicker"><span>Ultime Notizie</span></div>
+  <div class="news-grid" style="margin-bottom:3rem;">
+
+    <!-- 12 Settembre 2026 — Sempione News -->
+    <div class="news-card">
+      <div class="news-card-img" style="background:var(--navy);display:flex;align-items:center;justify-content:center;">
+        <div style="text-align:center;padding:1.5rem;">
+          <div style="font-size:.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:.5rem;">Sempione News</div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.1rem;color:#fff;line-height:1.4;">"La Fiera Ice Arena si avvicina al rhodense"</div>
+          <div style="font-size:.65rem;color:var(--gold);margin-top:.8rem;font-weight:600;">12 Settembre 2026</div>
+        </div>
+      </div>
+      <div class="news-card-body">
+        <span class="tag tag-club">Stampa · Club</span>
+        <div class="news-date">12 Settembre 2026</div>
+        <div class="news-title">Ladybirds alla Vetrina dello Sport di Rho: presenti alla Fiera Ice Arena</div>
+        <p class="news-excerpt">Alla Vetrina dello Sport organizzata dalla Consulta Cittadina dello Sport di Rho, le Ladybirds hanno partecipato con la nostra Head Coach Cristina Pastorelli. Sempione News ha raccontato l'evento e la nuova pista di Rho Fiera dove ci alleniamo.</p>
+        <a href="https://www.sempionenews.it/sport/oltre-50-associazioni-alla-riuscita-vetrina-dello-sport-la-fiera-ice-arena-si-avvicina-al-rhodense/" target="_blank" class="news-cta">Leggi l'articolo su Sempione News →</a>
+      </div>
+    </div>
+
+    <!-- 7 Luglio 2026 — Synchro 9 olimpico -->
+    <div class="news-card">
+      <div class="news-card-img">
+        <img src="img/worlds1.jpg" alt="Pattinaggio Sincronizzato Synchro 9">
+      </div>
+      <div class="news-card-body">
+        <span class="tag tag-synchro" data-lang-key="news_nc3_tag">Synchro 9</span>
+        <div class="news-date">7 Luglio 2026</div>
+        <div class="news-title" data-lang-key="news_nc3_title">Il Synchro 9 diventa olimpico. Noi lo stavamo già allenando.</div>
+        <p class="news-excerpt" data-lang-key="news_nc3_excerpt">Il 7 luglio 2026 il Synchro 9 entra ufficialmente nel programma olimpico. Le Ladybirds avevano già iniziato: stage dedicati, coach internazionali, una squadra in crescita. Quando gli altri hanno scoperto questa disciplina, noi eravamo già sul ghiaccio.</p>
+        <a href="https://www.olympics.com/it/notizie/synchro9-nuova-disciplina-pattinaggio-figura-debutto-olimpico-alpes-2030" target="_blank" class="news-cta" data-lang-key="news_nc3_cta">Scopri il Synchro 9 →</a>
+      </div>
+    </div>
+
+    <!-- 14-17 Giugno 2026 — Stage Kaisa -->
+    <div class="news-card">
+      <div class="news-card-img">
+        <img src="img/kaisa.jpg" alt="Stage Kaisa Arrateig" style="object-position:center;background:var(--ice);">
+      </div>
+      <div class="news-card-body">
+        <span class="tag tag-stage" data-lang-key="news_nc2_tag">Stage · Sold Out</span>
+        <div class="news-date">14–17 Giugno 2026</div>
+        <div class="news-title" data-lang-key="news_nc2_title">Synchro 9 Development con Kaisa Arrateig: anche questo sold out</div>
+        <p class="news-excerpt" data-lang-key="news_nc2_excerpt">Quattro giorni con la Head Coach delle Helsinki Rockettes. 4× World Champion Coach. Formazioni, precisione, identità di squadra. Un'esperienza che si ripete.</p>
+        <a href="stages.html" class="news-cta" data-lang-key="news_nc2_cta">Vedi i prossimi stage →</a>
+      </div>
+    </div>
+
+    <!-- 25 Maggio 2026 — Festa di Fine Anno -->
+    <div class="news-card">
+      <div class="news-card-img">
+        <img src="img/festa-fine-anno.jpg" alt="Ladybirds Festa di Fine Anno 2026" style="object-position:center center;">
+      </div>
+      <div class="news-card-body">
+        <span class="tag tag-festa" data-lang-key="news_festa_tag">Festa di Fine Anno</span>
+        <div class="news-date">25 Maggio 2026</div>
+        <div class="news-title">Fine stagione: grazie a tutti</div>
+        <p class="news-excerpt" data-lang-key="news_festa_p">Grazie alle atlete, ai genitori, allo staff, all'Accademia del Ghiaccio e a TUTTI coloro che hanno reso possibile ogni prova, ogni sorriso, ogni emozione sul ghiaccio. Senza di voi, nulla sarebbe stato lo stesso.</p>
+      </div>
+    </div>
+
+    <!-- 8-10 Maggio 2026 — Stage Milja -->
+    <div class="news-card">
+      <div class="news-card-img">
+        <img src="img/milja.jpg" alt="Stage Synchro Camp Milja Sarkkinen" style="object-position:center top;background:var(--navy);">
+      </div>
+      <div class="news-card-body">
+        <span class="tag tag-stage" data-lang-key="news_nc1_tag">Stage · Sold Out</span>
+        <div class="news-date">8 · 9 · 10 Maggio 2026</div>
+        <div class="news-title" data-lang-key="news_nc1_title">Introduzione al Synchro 9 con Milja Sarkkinen: posti esauriti</div>
+        <p class="news-excerpt" data-lang-key="news_nc1_excerpt">Il primo stage italiano dedicato al Synchro 9 ha fatto il tutto esaurito in pochi giorni. Tre giorni intensivi, sei coach internazionali, un'esperienza che ha cambiato il modo di vedere la disciplina.</p>
+        <a href="stages.html" class="news-cta" data-lang-key="news_nc1_cta">Vedi i prossimi stage →</a>
+      </div>
+    </div>
+
+    <!-- Aprile 2026 — Milano Easter Trophy -->
+    <div class="news-card-met">
+      <div class="news-card-met-img">
+        <img src="img/mET2026.jpg" alt="Milano Easter Trophy 2026">
+      </div>
+      <div class="news-card-met-body">
+        <span class="tag tag-trophy">Milano Easter Trophy</span>
+        <div class="news-date">Aprile 2026</div>
+        <div class="news-title">Milano Easter Trophy 2026: il ghiaccio di casa, il pubblico di tutta Europa</div>
+        <p class="news-excerpt">La competizione internazionale organizzata dalle Ladybirds. Squadre da tutta Europa, emozioni, musica e il meglio del pattinaggio sincronizzato al Palazzo del Ghiaccio.</p>
+        <a href="https://www.milanoeastertrophy.it" target="_blank" class="news-cta">Vai al sito del Trophy →</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- STAGIONE 2025-2026 -->
+  <div class="kicker"><span data-lang-key="news_stagione_kicker">Stagione 2025–2026</span></div>
+  <div class="news-grid">
+
+    <!-- WIDE: Risultati stagione -->
+    <div class="news-card-wide">
+      <div class="news-card-wide-img">
+        <img src="img/stagione da record.jpg" alt="Risultati stagione Ladybirds" style="object-position:center center;">
+      </div>
+      <div class="news-card-wide-body">
+        <span class="tag tag-gare" data-lang-key="news_wide_tag">Risultati</span>
+        <div class="news-date">Stagione 2025–2026</div>
+        <div class="news-title" style="font-family:var(--fd);font-size:1.4rem;color:var(--navy);line-height:1.2;margin-bottom:.7rem;" data-lang-key="news_wide_title">Una stagione da record. Le Ladybirds non si fermano.</div>
+        <p class="news-excerpt" style="font-size:.83rem;color:var(--gray);line-height:1.8;" data-lang-key="news_wide_excerpt">Podio dopo podio, gara dopo gara. Le nostre squadre hanno disputato una stagione straordinaria raccogliendo risultati che testimoniano anni di lavoro, dedizione e spirito di squadra. Dal Pre-Juvenile al Junior Isu, ogni categoria ha lasciato il segno sul ghiaccio italiano.</p>
+        <a href="index.html#risultati" class="news-cta" data-lang-key="news_wide_cta">Vedi tutti i risultati →</a>
+      </div>
+    </div>
+
+    <!-- Medaglie -->
+    <div class="news-card">
+      <div class="news-card-img">
+        <img src="img/medaglie.jpg" alt="Medaglie Ladybirds" style="object-position:center top;">
+      </div>
+      <div class="news-card-body">
+        <span class="tag tag-gare">Risultati</span>
+        <div class="news-date">Stagione 2025–2026</div>
+        <div class="news-title">Le piccole Ladybirds crescono: podi ai campionati giovanili</div>
+        <p class="news-excerpt">Le giovani pattinatrici hanno dimostrato il loro valore nelle categorie giovanili. Medaglie, sorrisi e la consapevolezza di far parte di qualcosa di grande. Il futuro delle Ladybirds è in buone mani.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ARCHIVIO -->
+  <div class="kicker"><span>Archivio</span></div>
+  <div class="news-grid" style="margin-bottom:4rem;">
+
+    <!-- MONDIALI -->
+    <div class="news-card">
+      <div class="news-card-img">
+        <img src="img/mondiali.jpg" alt="Ladybirds ai Mondiali" style="object-fit:contain;background:#0d1b3e;">
+      </div>
+      <div class="news-card-body">
+        <span class="tag tag-gare">Mondiali</span>
+        <div class="news-date">Stagione 2025·2026</div>
+        <div class="news-title">Quando il sogno diventa Mondiale</div>
+        <p class="news-excerpt">Avevamo tutto contro. Neuchâtel e Gothenburg. Un traguardo che sembrava lontanissimo, poi sempre più vicino, fino a diventare realtà. Ma le Ladybirds non hanno mollato.</p>
+        <a href="storia.html" class="news-cta">Leggi la storia →</a>
+      </div>
+    </div>
+
+    <!-- SALONE DEL MOBILE -->
+    <div class="news-card">
+      <div class="news-card-img">
+        <img src="img/salone del mobile.jpg" alt="Ladybirds Milano Design Week" style="object-fit:contain;background:#1a1a1a;">
+      </div>
+      <div class="news-card-body">
+        <span class="tag tag-club">Club</span>
+        <div class="news-date">Aprile 2025</div>
+        <div class="news-title">Le Ladybirds nella campagna ufficiale di Visit Milano per la Design Week</div>
+        <p class="news-excerpt">Scelte da Visit Milano e dal Salone del Mobile per rappresentare la città durante la Milano Design Week. Le nostre atlete in pattini alla Stazione Centrale, con il logo olimpico. Una storia che racconta chi siamo.</p>
+        <a href="https://www.instagram.com/teamladybirds_milano_ita/" target="_blank" class="news-cta">Vedi il post →</a>
+      </div>
+    </div>
+  </div>
+
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-top">
+    <div>
+      <img src="img/logo-ladybirds.jpg" alt="Ladybirds Milano Synchro Academy" style="height:56px;width:auto;display:block;margin-bottom:.8rem;border-radius:4px;">
+      <div class="ft-sub">Milano Synchro Academy A.S.D.</div>
+      <div class="ft-cf">CF 97846210157 · Dona il 5×1000</div>
+    </div>
+    <div class="ft-nav">
+      <div class="ft-col">
+        <h5>Pagine</h5>
+        <ul>
+          <li><a href="index.html#home">Home</a></li>
+          <li><a href="index.html#staff">Staff</a></li>
+          <li><a href="index.html#teams">Teams 2026–2027</a></li>
+          <li><a href="index.html#risultati">Risultati Gare</a></li>
+          <li><a href="stages.html">Stage &amp; Camp</a></li>
+          <li><a href="news.html">News</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h5>Piste</h5>
+        <ul>
+          <li><a href="#">Accademia del Ghiaccio, San Donato</a></li>
+          <li><a href="https://www.fisg.it/al-via-il-cantiere-della-fiera-ice-arena-fisg-e-fondazione-fiera-milano-danno-forma-alla-legacy-di-milano-cortina-2026/" target="_blank">Fiera Ice Arena, Rho</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h5>Competizioni</h5>
+        <ul>
+          <li><a href="https://www.milanoeastertrophy.it" target="_blank">Milano Easter Trophy ↗</a></li>
+          <li><a href="https://www.fisg.it/calendario-sincronizzato/" target="_blank">Calendario Gare FISG ↗</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h5>Contatti</h5>
+        <ul>
+          <li><a href="mailto:info@ladybirds.it">info@ladybirds.it</a></li>
+          <li><a href="https://wa.me/393389362018" target="_blank">WhatsApp ↗</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="ft-bot">
+    <div class="ft-copy">© 2026 Ladybirds Milano Synchro Academy A.S.D. · Tutti i diritti riservati</div>
+    <div class="socials">
+      <a href="https://www.instagram.com/teamladybirds_milano_ita/" class="s-btn" target="_blank" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <a href="https://www.facebook.com/566344623425742" class="s-btn" target="_blank" aria-label="Facebook">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+      </a>
+      <a href="https://wa.me/393389362018" class="s-btn" target="_blank" aria-label="WhatsApp">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+      </a>
+      <a href="mailto:info@ladybirds.it" class="s-btn" aria-label="Email">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script>
+function toggleNav() {
+  document.getElementById('mobileNav').classList.toggle('open');
+}
+function closeNav() {
+  document.getElementById('mobileNav').classList.remove('open');
+}
+</script>
+
+</body>
+</html>

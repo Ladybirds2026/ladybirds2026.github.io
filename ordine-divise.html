@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="format-detection" content="telephone=no,date=no,address=no,email=no">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ordine Divise 2026-2027 · Ladybirds Milano Synchro Academy</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+:root{
+  --navy:#0B2149;
+  --navy2:#122a5e;
+  --gold:#C9A84C;
+  --light:#f5f6fa;
+  --border:#dde2ee;
+  --red:#c0392b;
+  --green:#27ae60;
+  --txt:#1a2340;
+  --sub:#5a6480;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--light);color:var(--txt);font-size:15px}
+
+/* ── NAV ── */
+nav{background:var(--navy);display:flex;align-items:center;justify-content:space-between;padding:.7rem 2rem;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.3)}
+.nav-logo img{height:44px}
+.nav-links{display:flex;gap:1.4rem;align-items:center}
+.nav-links a{color:#fff;text-decoration:none;font-size:.82rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;opacity:.85;transition:opacity .2s}
+.nav-links a:hover{opacity:1;color:var(--gold)}
+.nav-back{color:var(--gold)!important;opacity:1!important;border:1px solid var(--gold);border-radius:4px;padding:.3rem .7rem}
+
+/* ── HERO ── */
+.hero{background:linear-gradient(135deg,var(--navy) 60%,var(--navy2));color:#fff;padding:2.8rem 2rem 2rem;text-align:center}
+.hero h1{font-size:1.8rem;font-weight:800;letter-spacing:.02em;margin-bottom:.4rem}
+.hero p{color:rgba(255,255,255,.75);font-size:.95rem}
+.hero .contact-bar{margin-top:1.2rem;display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap}
+.hero .contact-bar span{font-size:.82rem;color:rgba(255,255,255,.8)}
+.hero .contact-bar strong{color:var(--gold)}
+
+/* ── TOTAL STICKY ── */
+.total-bar{background:var(--navy);color:#fff;padding:.7rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:60px;z-index:90;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.total-bar .lbl{font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;opacity:.7}
+.total-bar .amount{font-size:1.5rem;font-weight:800;color:var(--gold)}
+.total-bar .items-count{font-size:.78rem;color:rgba(255,255,255,.5);margin-top:.1rem}
+
+/* ── CONTAINER ── */
+.wrap{max-width:900px;margin:0 auto;padding:2rem 1.2rem 4rem}
+
+/* ── DATI ATLETA ── */
+.card{background:#fff;border-radius:10px;padding:1.6rem;margin-bottom:1.8rem;box-shadow:0 1px 6px rgba(0,0,0,.07)}
+.card-title{font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+.card-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.form-field{display:flex;flex-direction:column;gap:.3rem}
+.form-field label{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--sub)}
+.form-field input,.form-field textarea{border:1.5px solid var(--border);border-radius:6px;padding:.55rem .8rem;font-size:.9rem;font-family:inherit;transition:border .2s}
+.form-field input:focus,.form-field textarea:focus{outline:none;border-color:var(--navy)}
+.form-field.full{grid-column:span 2}
+
+/* ── LEGENDA ── */
+.legend{background:var(--navy);color:#fff;border-radius:8px;padding:1rem 1.4rem;margin-bottom:1.8rem;font-size:.82rem;display:flex;gap:2rem;flex-wrap:wrap}
+.legend span{display:flex;align-items:center;gap:.4rem}
+.legend .star{color:var(--gold);font-size:1em}
+
+/* ── PRODUCTS ── */
+.cat-label{font-size:.7rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--sub);margin:2rem 0 .8rem;padding-left:.2rem}
+
+.prod-row{background:#fff;border-radius:10px;margin-bottom:.8rem;box-shadow:0 1px 5px rgba(0,0,0,.06);display:flex;align-items:flex-start;gap:1rem;padding:1rem 1.2rem;transition:box-shadow .2s}
+.prod-row:hover{box-shadow:0 3px 14px rgba(0,0,0,.1)}
+.prod-row.active{border-left:3px solid var(--gold)}
+.prod-img{width:72px;height:72px;flex-shrink:0;border-radius:7px;object-fit:cover;background:var(--light)}
+.prod-img.placeholder{display:flex;align-items:center;justify-content:center;color:var(--border);font-size:1.4rem;background:var(--light)}
+.prod-info{flex:1;min-width:0}
+.prod-name{font-weight:700;font-size:.92rem;margin-bottom:.15rem;line-height:1.3}
+.prod-stars{font-size:.8rem;display:inline-flex;gap:.3rem;flex-wrap:wrap;margin-left:.4rem;vertical-align:middle}
+.obl-badge{font-size:.58rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:.15rem .45rem;border-radius:3px;white-space:nowrap}
+.obl-sjn{background:var(--navy);color:#fff}
+.obl-alt{background:#2e7d6b;color:#fff}
+.obl-cor{background:#5a3e99;color:#fff}
+.prod-price{font-weight:800;color:var(--navy);font-size:.95rem}
+.prod-note{font-size:.73rem;color:var(--sub);margin-top:.15rem;font-style:italic}
+.prod-stock{font-size:.72rem;background:#fff3cd;color:#856404;border-radius:3px;padding:.1rem .4rem;display:inline-block;margin-top:.2rem}
+
+.sizes-row{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.8rem;align-items:flex-end}
+.size-cell{display:flex;flex-direction:column;align-items:center;gap:.25rem}
+.size-cell label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--sub);white-space:nowrap}
+.size-ctrl{display:flex;align-items:center}
+.size-ctrl button{width:30px;height:36px;border:1.5px solid var(--border);background:#fff;cursor:pointer;font-size:1rem;font-weight:700;color:var(--navy);line-height:1;transition:all .15s;-webkit-tap-highlight-color:transparent}
+.size-ctrl button:first-child{border-radius:6px 0 0 6px;border-right:none}
+.size-ctrl button:last-child{border-radius:0 6px 6px 0;border-left:none}
+.size-ctrl button:active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.size-ctrl input[type=number]{width:38px;height:36px;text-align:center;border:1.5px solid var(--border);border-left:none;border-right:none;border-radius:0;font-size:.88rem;font-weight:700;color:var(--navy);background:#fff}
+.size-ctrl input[type=number]:focus{outline:none;border-color:var(--gold);background:#fffdf5;z-index:1;position:relative}
+.size-ctrl input[type=number]::-webkit-inner-spin-button,.size-ctrl input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+.size-ctrl input[type=number]{-moz-appearance:textfield}
+
+/* no-size qty */
+.qty-wrap{display:flex;flex-direction:column;align-items:center;gap:.2rem;margin-left:auto;flex-shrink:0}
+.qty-wrap label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--sub)}
+.qty-wrap .qty-ctrl{display:flex;align-items:center;gap:.3rem}
+.qty-ctrl button{width:34px;height:36px;border:1.5px solid var(--border);background:#fff;border-radius:5px;cursor:pointer;font-size:1rem;font-weight:700;color:var(--navy);display:flex;align-items:center;justify-content:center;transition:all .15s;-webkit-tap-highlight-color:transparent}
+.qty-ctrl button:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
+.qty-ctrl input[type=number]{width:40px;text-align:center;border:1.5px solid var(--border);border-radius:5px;padding:.3rem .2rem;font-size:.9rem;font-weight:700;color:var(--navy)}
+.qty-ctrl input:focus{outline:none;border-color:var(--gold)}
+.qty-ctrl input::-webkit-inner-spin-button{opacity:.4}
+
+/* ── SIZE GUIDE ── */
+.size-guide-toggle{background:none;border:1.5px solid var(--gold);color:var(--navy);border-radius:6px;padding:.4rem 1rem;cursor:pointer;font-size:.8rem;font-weight:700;letter-spacing:.04em;margin-bottom:1.2rem;display:flex;align-items:center;gap:.5rem}
+.size-guide-box{background:#fff;border-radius:10px;padding:1.2rem;margin-bottom:1.5rem;display:none;box-shadow:0 1px 6px rgba(0,0,0,.07)}
+.size-guide-box.open{display:block}
+.size-guide-box img{max-width:400px;width:100%;border-radius:6px}
+.size-guide-box p{font-size:.78rem;color:var(--sub);margin-top:.6rem}
+
+/* ── NOTE ── */
+.note-field textarea{width:100%;min-height:80px;resize:vertical}
+
+/* ── SUBTOTAL BOX ── */
+.subtotal-box{background:#fff;border-radius:10px;padding:1.4rem;margin-top:1.5rem;box-shadow:0 1px 6px rgba(0,0,0,.07)}
+.subtotal-title{font-size:.7rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--sub);margin-bottom:.8rem}
+.subtotal-lines{font-size:.85rem;line-height:1.9;color:var(--txt)}
+.subtotal-lines .line{display:flex;justify-content:space-between}
+.subtotal-lines .line .name{color:var(--sub)}
+.subtotal-sep{border:none;border-top:1px solid var(--border);margin:.6rem 0}
+.subtotal-total{display:flex;justify-content:space-between;align-items:baseline;font-weight:800;font-size:1.1rem;color:var(--navy)}
+.subtotal-total .note{font-size:.72rem;font-weight:400;color:var(--sub)}
+
+/* ── SUBMIT ── */
+.submit-section{margin-top:1.5rem;text-align:center}
+.btn-submit{background:var(--gold);color:var(--navy);font-weight:800;border:none;border-radius:8px;padding:1rem 3rem;font-size:1rem;cursor:pointer;letter-spacing:.05em;text-transform:uppercase;transition:all .2s;display:inline-flex;align-items:center;gap:.6rem}
+.btn-submit:hover{background:#b8962e;transform:translateY(-1px);box-shadow:0 4px 16px rgba(201,168,76,.4)}
+.btn-submit:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.submit-note{font-size:.78rem;color:var(--sub);margin-top:.7rem}
+
+/* ── CONFIRM OVERLAY ── */
+.confirm-overlay{display:none;position:fixed;inset:0;background:rgba(11,33,73,.85);z-index:200;align-items:center;justify-content:center;padding:1rem}
+.confirm-overlay.show{display:flex}
+.confirm-box{background:#fff;border-radius:14px;padding:2.5rem 2rem;max-width:500px;width:100%;text-align:center}
+.confirm-box .icon{font-size:2.8rem;margin-bottom:.8rem}
+.confirm-box h2{color:var(--navy);font-size:1.3rem;margin-bottom:.5rem}
+.confirm-box .total-preview{font-size:2rem;font-weight:800;color:var(--gold);margin:1rem 0}
+.confirm-box p{color:var(--sub);font-size:.88rem;line-height:1.6;margin-bottom:.5rem}
+.confirm-box .warning{background:#fff3cd;border-radius:6px;padding:.8rem 1rem;color:#856404;font-size:.82rem;margin:1rem 0}
+.confirm-box .btn-go{background:var(--navy);color:#fff;border:none;border-radius:8px;padding:.9rem 2rem;cursor:pointer;font-size:.95rem;font-weight:700;margin-top:1rem;width:100%}
+.confirm-box .btn-cancel{background:none;border:none;color:var(--sub);cursor:pointer;font-size:.82rem;margin-top:.6rem;text-decoration:underline}
+
+/* ── FOOTER ── */
+footer{background:var(--navy);color:rgba(255,255,255,.6);text-align:center;padding:1.5rem;font-size:.78rem}
+footer strong{color:var(--gold)}
+
+@media(max-width:600px){
+  .form-grid{grid-template-columns:1fr}
+  .form-field.full{grid-column:span 1}
+  .legend{gap:1rem}
+  .hero h1{font-size:1.4rem}
+  .total-bar{top:56px}
+  .sizes-row{gap:.4rem}
+  .size-cell input[type=number]{width:40px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html"><img src="img/logo-ladybirds.jpg" alt="Ladybirds Milano Synchro Academy"></a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-back">← Sito</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>Ordine Divise · Stagione 2026–2027</h1>
+  <p>Compila il modulo, controlla il totale e invia l'ordine via email</p>
+  <div class="contact-bar">
+    <span>Referente: <strong>Roberta</strong></span>
+    <span><strong>divise@ladybirds.it</strong></span>
+    <span>Tel. <strong>340 483 9540</strong></span>
+  </div>
+</div>
+
+<!-- TOTAL STICKY BAR -->
+<div class="total-bar">
+  <div>
+    <div class="lbl">Totale stimato</div>
+    <div class="items-count" id="items-count">0 articoli selezionati</div>
+  </div>
+  <div class="amount">€ <span id="total-sticky">0,00</span></div>
+</div>
+
+<div class="wrap">
+
+  <!-- DATI ATLETA -->
+  <div class="card">
+    <div class="card-title">Dati Atleta / Genitore</div>
+    <div class="form-grid">
+      <div class="form-field">
+        <label>Nome e cognome atleta *</label>
+        <input type="text" id="f-atleta" placeholder="Nome Cognome" required>
+      </div>
+      <div class="form-field">
+        <label>Nome genitore / tutore</label>
+        <input type="text" id="f-genitore" placeholder="Nome Cognome">
+      </div>
+      <div class="form-field">
+        <label>Email *</label>
+        <input type="email" id="f-email" placeholder="email@esempio.it" required>
+      </div>
+      <div class="form-field">
+        <label>Telefono</label>
+        <input type="tel" id="f-telefono" placeholder="+39 …">
+      </div>
+    </div>
+  </div>
+
+  <!-- LEGENDA -->
+  <div class="legend">
+    <span><span class="obl-badge obl-sjn">SEN/JUN</span> Obbligatorio Senior / Junior / Synchro9 / Novice</span>
+    <span><span class="obl-badge obl-alt">ALTRE</span> Obbligatorio Altre categorie Sincronizzato</span>
+    <span><span class="obl-badge obl-cor">CORSI</span> Obbligatorio Corsi Avviamento</span>
+  </div>
+
+  <!-- GUIDA TAGLIE -->
+  <button class="size-guide-toggle" onclick="document.getElementById('size-guide').classList.toggle('open');this.textContent=document.getElementById('size-guide').classList.contains('open')?'▲ Chiudi guida taglie':'▼ Guida taglie Sagester (girovita · giro petto)'">
+    ▼ Guida taglie Sagester (girovita · giro petto)
+  </button>
+  <div class="size-guide-box" id="size-guide">
+    <img src="img/divise/griglia-taglie.jpg" alt="Guida taglie Sagester">
+    <p>Misure in cm. Per dubbi contatta Roberta: <strong>340 483 9540</strong></p>
+  </div>
+
+  <!-- GUIDA TAGLIE PILE & GIUBBOTTO -->
+  <button class="size-guide-toggle" style="margin-top:.4rem;" onclick="document.getElementById('size-guide-dec').classList.toggle('open');this.textContent=document.getElementById('size-guide-dec').classList.contains('open')?'▲ Chiudi guida taglie':'▼ Guida taglie pile &amp; giubbotto invernale (girovita · giro petto)'">
+    ▼ Guida taglie pile &amp; giubbotto invernale (girovita · giro petto)
+  </button>
+  <div class="size-guide-box" id="size-guide-dec">
+    <table style="width:100%;border-collapse:collapse;font-size:.82rem;">
+      <thead>
+        <tr style="background:var(--navy);color:#fff;">
+          <th style="padding:.5rem .8rem;text-align:left;">Taglia</th>
+          <th style="padding:.5rem .8rem;text-align:left;">Girovita (cm)</th>
+          <th style="padding:.5rem .8rem;text-align:left;">Giro petto (cm)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:.45rem .8rem;font-weight:700;">2XS</td><td style="padding:.45rem .8rem;">58 – 68</td><td style="padding:.45rem .8rem;">78 – 83.5</td></tr>
+        <tr style="border-bottom:1px solid var(--border);background:#f8f9fb;"><td style="padding:.45rem .8rem;font-weight:700;">XS</td><td style="padding:.45rem .8rem;">68 – 71</td><td style="padding:.45rem .8rem;">83.5 – 87</td></tr>
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:.45rem .8rem;font-weight:700;">S</td><td style="padding:.45rem .8rem;">71 – 74</td><td style="padding:.45rem .8rem;">87 – 90.5</td></tr>
+        <tr style="border-bottom:1px solid var(--border);background:#f8f9fb;"><td style="padding:.45rem .8rem;font-weight:700;">M</td><td style="padding:.45rem .8rem;">74 – 77</td><td style="padding:.45rem .8rem;">90.5 – 94</td></tr>
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:.45rem .8rem;font-weight:700;">L</td><td style="padding:.45rem .8rem;">77 – 89</td><td style="padding:.45rem .8rem;">94 – 103</td></tr>
+        <tr style="border-bottom:1px solid var(--border);background:#f8f9fb;"><td style="padding:.45rem .8rem;font-weight:700;">XL</td><td style="padding:.45rem .8rem;">89 – 101</td><td style="padding:.45rem .8rem;">103 – 112</td></tr>
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:.45rem .8rem;font-weight:700;">2XL</td><td style="padding:.45rem .8rem;">101 – 113</td><td style="padding:.45rem .8rem;">112 – 124</td></tr>
+        <tr style="background:#f8f9fb;"><td style="padding:.45rem .8rem;font-weight:700;">3XL</td><td style="padding:.45rem .8rem;">113 – 125</td><td style="padding:.45rem .8rem;">124 – 136</td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top:.7rem;">Misure in cm. Per dubbi contatta Roberta: <strong>340 483 9540</strong></p>
+  </div>
+
+  <!-- ==================== PRODOTTI ==================== -->
+  <div id="products-container"></div>
+
+  <!-- NOTE -->
+  <div class="card note-field">
+    <div class="card-title">Note / Richieste particolari</div>
+    <div class="form-field full">
+      <textarea id="f-note" placeholder="Es. misure particolari, urgenze, domande su disponibilità…"></textarea>
+    </div>
+  </div>
+
+  <!-- SUBTOTALE -->
+  <div class="subtotal-box" id="subtotal-box">
+    <div class="subtotal-title">Riepilogo ordine</div>
+    <div class="subtotal-lines" id="subtotal-lines"><em style="color:var(--sub);font-size:.82rem">Nessun articolo selezionato</em></div>
+    <hr class="subtotal-sep">
+    <div class="subtotal-total">
+      <span>Totale stimato <span class="note">* da confermare</span></span>
+      <span>€ <span id="total-final">0,00</span></span>
+    </div>
+  </div>
+
+  <!-- SUBMIT -->
+  <div class="submit-section">
+    <button class="btn-submit" id="btn-submit" onclick="handleSubmit()">
+      ✉ Invia ordine a Ladybirds
+    </button>
+    <p class="submit-note">Il totale è una stima. Verrai contattato entro 2-3 giorni lavorativi per conferma disponibilità e pagamento.</p>
+  </div>
+
+</div><!-- /wrap -->
+
+<!-- CONFIRM OVERLAY -->
+<div class="confirm-overlay" id="confirm-overlay">
+  <div class="confirm-box">
+    <div class="icon">✅</div>
+    <h2>Ordine pronto!</h2>
+    <div class="total-preview">€ <span id="conf-total">0,00</span></div>
+    <p>Il tuo client email si aprirà con l'ordine già compilato per <strong>divise@ladybirds.it</strong>.</p>
+    <div class="warning">
+      ⚠️ Il totale è <strong>stimato</strong>. Riceverai conferma di disponibilità e importo definitivo entro <strong>2–3 giorni lavorativi</strong>.
+    </div>
+    <p id="conf-summary" style="font-size:.78rem;color:var(--sub);text-align:left;margin-top:.5rem;max-height:140px;overflow-y:auto;background:var(--light);border-radius:6px;padding:.7rem"></p>
+    <button class="btn-go" onclick="doSend()">📄 Scarica PDF e apri email</button>
+    <br>
+    <button class="btn-cancel" onclick="document.getElementById('confirm-overlay').classList.remove('show')">← Torna al modulo</button>
+  </div>
+</div>
+
+<footer>
+  <strong>Ladybirds Milano Synchro Academy ASD</strong> · C.F. 97846210157 · divise@ladybirds.it · www.ladybirds.it
+</footer>
+
+<script>
+// ── PRODUCT DATA ──────────────────────────────────────────────────
+const CATS = [
+  {
+    id:'gara', label:'Abbigliamento da Gara',
+    items:[
+      { id:'giacchino-gara',  name:'Giacchino ghiaccio GARE',        stars:'★',   price:75, img:'img/divise/giacchino-gara.jpg', sizes:['XS','S','M','L','XL','XXL'] },
+      { id:'leggings-gara',   name:'Leggings GARA',                  stars:'★',   price:45, img:'img/divise/leggings-gara.jpg',  sizes:['XS','S','M','L','XL','XXL'] },
+      { id:'canotta-ice',     name:'Ice ITALIA BIANCA / NERA',       stars:'★',   price:20, img:'img/divise/ice-italia.jpg',     sizes:['XS','S','M','L'], note:'Indicare colore (BIANCA o NERA)' },
+      { id:'collant-carne',   name:'Collant GARA Nymphea – carne',   stars:'★ ★★', price:14, img:'img/divise/collant.jpg',        sizes:['8-10 anni','10-12 anni','S/M','L/XL'] },
+      { id:'collant-nero',    name:'Collant GARA Nymphea – nero',    stars:'★ ★★', price:14, img:'img/divise/collant.jpg',        sizes:['8-10 anni','10-12 anni','S/M','L/XL'] },
+    ]
+  },
+  {
+    id:'all', label:'Abbigliamento Allenamento',
+    items:[
+      { id:'leggings-all',    name:'Leggings allenamento',            stars:'★★ ★★★', price:40, img:'img/divise/leggings-all.jpg',     sizes:['XS','S','M','L','XL'] },
+      { id:'maglia-bianca',   name:'Maglietta mc BIANCA',             stars:'★ ★★ ★★★', price:12, img:'img/divise/maglietta-bianca.jpg', sizes:['XS','S','M','L','XL'] },
+      { id:'maglia-nera',     name:'Maglietta mc NERA',               stars:'★ ★★ ★★★', price:12, img:'img/divise/maglietta-nera.jpg',   sizes:['XS','S','M','L','XL'] },
+      { id:'pantaloncino',    name:'Pantaloncino corto ginnastica',   stars:'★',   price:12, img:'img/divise/pantaloncino.jpg',     sizes:['XS','S','M','L','XL'] },
+      { id:'felpa-all',       name:'Felpa allenamento',               stars:'★★ ★★★', price:30, img:'img/divise/felpa-corsi.jpg',      sizes:['XS','S','M','XL'], note:'Obbligatorio Prejuvenile e Corsi Avviamento' },
+      { id:'pile-lunga',      name:'Pile allenamento manica lunga',   stars:'',    price:40, img:'img/divise/pile-lunga.jpg',       sizes:['XS','S','M','L','XL'] },
+      { id:'pile-senza',      name:'Pile senza maniche',              stars:'',    price:35, img:'img/divise/pile-senza.jpg',       sizes:['XS','S','M','L','XL'] },
+      { id:'giubbotto-inv',   name:'Giubbotto invernale',             stars:'★ ★★ ★★★', price:60, img:'img/divise/giubbotto-inv.jpg',    sizes:['XS','S','M','L','XL'] },
+      { id:'canotta-new',     name:'Canotta Italia new',              stars:'',    price:20, img:'img/divise/canotta.jpg',          sizes:['XS','S','M','L'], note:'Disponibile da novembre', stock:'Disponibile da novembre' },
+      { id:'pile-stock-ml',   name:'Pile vecchio stock M/L',          stars:'',    price:20, img:'img/divise/pile-lunga.jpg',       sizes:['XS','M'], note:'Solo allenamento', stock:'Fino a esaurimento' },
+      { id:'pile-stock-sm',   name:'Pile vecchio stock S/M',          stars:'',    price:15, img:'img/divise/pile-lunga.jpg',       sizes:['S','M','L'], note:'Solo allenamento', stock:'Fino a esaurimento' },
+    ]
+  },
+  {
+    id:'acc', label:'Accessori e Attrezzatura',
+    items:[
+      { id:'pannetto',        name:'Pannetto lame',                           stars:'',  price:3,  img:'img/divise/pannetto-lame.jpg',  sizes:null },
+      { id:'coprilama',       name:'Coprilama pile',                          stars:'',  price:10, img:'img/divise/coprilama.jpg',       sizes:null, note:'Nome opzionale +€3,00' },
+      { id:'borraccia',       name:'Borraccia con logo e personaliz. nome',   stars:'★', price:18, img:'img/divise/borraccia.jpg',       sizes:null },
+      { id:'scaldamuscolo',   name:'Scaldamuscolo',                           stars:'',  price:12, img:'img/divise/scaldamuscolo.jpg',   sizes:null },
+      { id:'cavigliera',      name:'Cavigliera gel',                          stars:'',  price:20, img:'img/divise/cavigliera.jpg',      sizes:null },
+      { id:'fascia',          name:'Fascia con logo',                         stars:'',  price:15, img:'img/divise/fascia.jpg',          sizes:null },
+      { id:'scalda-collo',    name:'Scalda collo',                            stars:'',  price:14, img:'img/divise/scalda-collo.jpg',    sizes:null },
+      { id:'pochette',        name:'Pochette trucchi',                        stars:'',  price:10, img:'img/divise/pochette.jpg',        sizes:null },
+      { id:'portachiavi',     name:'Portachiavi / segnavaligia con nome',     stars:'',  price:6,  img:'img/divise/portachiavi.jpg',     sizes:null },
+    ]
+  },
+  {
+    id:'borse', label:'Borse e Trolley',
+    items:[
+      { id:'trolley-grigio',  name:'Trolley grigio',  stars:'★',  price:35, img:'img/divise/trolley-grigio.jpg', sizes:null },
+      { id:'trolley-nero',    name:'Trolley nero',    stars:'★★', price:40, img:'img/divise/trolley-stage.jpg',  sizes:null },
+      { id:'zainetto',        name:'Zainetto',        stars:'★ ★★', price:20, img:'img/divise/zainetto.jpg',       sizes:null },
+    ]
+  }
+];
+
+// ── BUILD UI ──────────────────────────────────────────────────────
+const container = document.getElementById('products-container');
+
+CATS.forEach(cat => {
+  const lbl = document.createElement('div');
+  lbl.className = 'cat-label';
+  lbl.textContent = cat.label;
+  container.appendChild(lbl);
+
+  cat.items.forEach(item => {
+    const row = document.createElement('div');
+    row.className = 'prod-row';
+    row.id = 'row-' + item.id;
+
+    // Image
+    const imgWrap = document.createElement('div');
+    if(item.img){
+      const img = document.createElement('img');
+      img.src = item.img; img.alt = item.name;
+      img.className = 'prod-img';
+      img.onerror = function(){ this.style.display='none'; };
+      imgWrap.appendChild(img);
+    } else {
+      imgWrap.className = 'prod-img placeholder';
+      imgWrap.textContent = '👕';
+    }
+    row.appendChild(imgWrap);
+
+    // Info
+    const info = document.createElement('div');
+    info.className = 'prod-info';
+    function renderBadges(stars){
+      if(!stars) return '';
+      const parts = stars.split(' ');
+      let b = '<span class="prod-stars">';
+      if(parts.includes('★'))   b += '<span class="obl-badge obl-sjn">SEN/JUN</span>';
+      if(parts.includes('★★'))  b += '<span class="obl-badge obl-alt">ALTRE</span>';
+      if(parts.includes('★★★')) b += '<span class="obl-badge obl-cor">CORSI</span>';
+      return b + '</span>';
+    }
+    info.innerHTML = `
+      <div class="prod-name">${item.name}${item.stars ? renderBadges(item.stars) : ''}</div>
+      <div class="prod-price">€ ${item.price.toFixed(2).replace('.',',')}</div>
+      ${item.note ? `<div class="prod-note">${item.note}</div>` : ''}
+      ${item.stock ? `<div class="prod-stock">⚠ ${item.stock}</div>` : ''}
+    `;
+
+    if(item.sizes){
+      // size-grid
+      const sizesRow = document.createElement('div');
+      sizesRow.className = 'sizes-row';
+      item.sizes.forEach(sz => {
+        const cell = document.createElement('div');
+        cell.className = 'size-cell';
+        const inputId = `qty-${item.id}-${sz.replace(/[^a-z0-9]/gi,'-')}`;
+        cell.innerHTML = `<label for="${inputId}">${sz}</label>
+          <div class="size-ctrl">
+            <button type="button" onclick="adjustQty('${inputId}',-1)" aria-label="Diminuisci ${sz}">−</button>
+            <input type="number" inputmode="numeric" id="${inputId}" min="0" max="99" value="0" data-item="${item.id}" data-size="${sz}" data-price="${item.price}">
+            <button type="button" onclick="adjustQty('${inputId}',1)" aria-label="Aumenta ${sz}">+</button>
+          </div>`;
+        sizesRow.appendChild(cell);
+      });
+      info.appendChild(sizesRow);
+    }
+    row.appendChild(info);
+
+    if(!item.sizes){
+      // simple qty with +/- buttons
+      const qw = document.createElement('div');
+      qw.className = 'qty-wrap';
+      const inputId = `qty-${item.id}`;
+      qw.innerHTML = `
+        <label>Qt.</label>
+        <div class="qty-ctrl">
+          <button onclick="adjustQty('${inputId}',-1)">−</button>
+          <input type="number" inputmode="numeric" id="${inputId}" min="0" max="99" value="0" data-item="${item.id}" data-size="" data-price="${item.price}">
+          <button onclick="adjustQty('${inputId}',1)">+</button>
+        </div>`;
+      row.appendChild(qw);
+    }
+
+    container.appendChild(row);
+  });
+});
+
+// ── EVENTS ────────────────────────────────────────────────────────
+document.addEventListener('input', e => {
+  if(e.target.dataset.item) updateTotal();
+});
+
+function adjustQty(id, delta){
+  const inp = document.getElementById(id);
+  inp.value = Math.max(0, parseInt(inp.value||0) + delta);
+  updateTotal();
+}
+
+// ── TOTALE ────────────────────────────────────────────────────────
+let orderData = {};
+
+function updateTotal(){
+  let total = 0, count = 0;
+  orderData = {};
+
+  document.querySelectorAll('[data-item]').forEach(inp => {
+    const qty = parseInt(inp.value) || 0;
+    if(qty <= 0) return;
+    const id = inp.dataset.item;
+    const sz = inp.dataset.size;
+    const price = parseFloat(inp.dataset.price);
+    const key = id + (sz ? '-' + sz : '');
+    orderData[key] = { id, size: sz, qty, price };
+    total += qty * price;
+    count += qty;
+  });
+
+  // format
+  const fmt = v => v.toFixed(2).replace('.',',');
+
+  document.getElementById('total-sticky').textContent = fmt(total);
+  document.getElementById('total-final').textContent = fmt(total);
+  document.getElementById('items-count').textContent =
+    count === 0 ? '0 articoli selezionati' : `${count} articolo${count>1?'i':''} selezionato${count>1?'i':''}`;
+
+  // highlight active rows
+  document.querySelectorAll('.prod-row').forEach(r => r.classList.remove('active'));
+  Object.values(orderData).forEach(d => {
+    const row = document.getElementById('row-' + d.id);
+    if(row) row.classList.add('active');
+  });
+
+  // subtotal lines
+  buildSubtotal(total);
+}
+
+function buildSubtotal(total){
+  const box = document.getElementById('subtotal-lines');
+  const fmt = v => v.toFixed(2).replace('.',',');
+
+  if(Object.keys(orderData).length === 0){
+    box.innerHTML = '<em style="color:var(--sub);font-size:.82rem">Nessun articolo selezionato</em>';
+    return;
+  }
+
+  // Group by category label
+  let html = '';
+  CATS.forEach(cat => {
+    let catLines = '';
+    cat.items.forEach(item => {
+      // find all entries for this item
+      Object.entries(orderData).forEach(([k,d]) => {
+        if(d.id === item.id){
+          const label = item.name + (d.size ? ` (${d.size})` : '') + ` ×${d.qty}`;
+          const sub = d.qty * d.price;
+          catLines += `<div class="line"><span class="name">${label}</span><span>€ ${fmt(sub)}</span></div>`;
+        }
+      });
+    });
+    if(catLines){
+      html += `<div style="font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--sub);margin:.5rem 0 .2rem">${cat.label}</div>`;
+      html += catLines;
+    }
+  });
+  box.innerHTML = html;
+}
+
+// ── SUBMIT ────────────────────────────────────────────────────────
+function handleSubmit(){
+  const atleta = document.getElementById('f-atleta').value.trim();
+  const email  = document.getElementById('f-email').value.trim();
+  if(!atleta){ alert('Inserisci il nome dell\'atleta.'); document.getElementById('f-atleta').focus(); return; }
+  if(!email)  { alert('Inserisci l\'email di contatto.'); document.getElementById('f-email').focus(); return; }
+  if(Object.keys(orderData).length === 0){ alert('Seleziona almeno un articolo.'); return; }
+
+  const total = Object.values(orderData).reduce((s,d)=>s+d.qty*d.price,0);
+  const fmt = v => v.toFixed(2).replace('.',',');
+
+  // build summary for display
+  let summary = `ATLETA: ${atleta}\n`;
+  summary += document.getElementById('f-genitore').value.trim() ? `GENITORE: ${document.getElementById('f-genitore').value.trim()}\n` : '';
+  summary += `EMAIL: ${email}\n`;
+  summary += document.getElementById('f-telefono').value.trim() ? `TEL: ${document.getElementById('f-telefono').value.trim()}\n` : '';
+  summary += '\n--- ARTICOLI ---\n';
+
+  CATS.forEach(cat => {
+    let catTxt = '';
+    cat.items.forEach(item => {
+      Object.entries(orderData).forEach(([k,d]) => {
+        if(d.id === item.id){
+          catTxt += `• ${item.name}${d.size?' ('+d.size+')':''} ×${d.qty} = €${fmt(d.qty*d.price)}\n`;
+        }
+      });
+    });
+    if(catTxt) summary += `\n[${cat.label.toUpperCase()}]\n` + catTxt;
+  });
+
+  const note = document.getElementById('f-note').value.trim();
+  if(note) summary += `\n--- NOTE ---\n${note}\n`;
+  summary += `\n================================\nTOTALE STIMATO: €${fmt(total)}\n================================\n`;
+  summary += '\nIl totale è una stima. Vi contatteremo entro 2-3 giorni lavorativi per conferma disponibilità e pagamento.';
+
+  document.getElementById('conf-total').textContent = fmt(total);
+  document.getElementById('conf-summary').textContent = summary;
+  document.getElementById('confirm-overlay').classList.add('show');
+}
+
+function doSend(){
+  const atleta  = document.getElementById('f-atleta').value.trim();
+  const email   = document.getElementById('f-email').value.trim();
+  const gen     = document.getElementById('f-genitore').value.trim();
+  const tel     = document.getElementById('f-telefono').value.trim();
+  const note    = document.getElementById('f-note').value.trim();
+  const total   = Object.values(orderData).reduce((s,d)=>s+d.qty*d.price,0);
+  const fmt     = v => v.toFixed(2).replace('.',',');
+  const now     = new Date();
+  const dateStr = now.toLocaleDateString('it-IT',{day:'2-digit',month:'2-digit',year:'numeric'});
+
+  // ── 1. GENERA PDF ──────────────────────────────────────────────
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ unit:'mm', format:'a4' });
+  const W = 210, M = 18;
+
+  // header bar
+  doc.setFillColor(11,33,73);
+  doc.rect(0,0,W,28,'F');
+  doc.setTextColor(255,255,255);
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(13);
+  doc.text('LADYBIRDS MILANO SYNCHRO ACADEMY', M, 11);
+  doc.setFontSize(8);
+  doc.setFont('helvetica','normal');
+  doc.setTextColor(201,168,76);
+  doc.text('MODULO ORDINE DIVISE · STAGIONE 2026–2027', M, 17);
+  doc.setTextColor(200,210,235);
+  doc.text(`divise@ladybirds.it  ·  Roberta 340 483 9540`, M, 23);
+
+  // gold line
+  doc.setDrawColor(201,168,76);
+  doc.setLineWidth(0.5);
+  doc.line(M, 31, W-M, 31);
+
+  let y = 38;
+
+  // dati atleta
+  doc.setTextColor(11,33,73);
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(8);
+  doc.text('DATI ATLETA / GENITORE', M, y); y += 5;
+  doc.setFont('helvetica','normal');
+  doc.setFontSize(9);
+  doc.setTextColor(30,40,70);
+  doc.text(`Atleta: ${atleta}`, M, y);
+  if(gen) doc.text(`Genitore: ${gen}`, W/2, y);
+  y += 5;
+  doc.text(`Email: ${email}`, M, y);
+  if(tel) doc.text(`Tel: ${tel}`, W/2, y);
+  y += 5;
+  doc.text(`Data ordine: ${dateStr}`, M, y);
+  y += 8;
+
+  // gold separator
+  doc.setDrawColor(201,168,76);
+  doc.setLineWidth(0.3);
+  doc.line(M, y, W-M, y);
+  y += 6;
+
+  // articoli per categoria
+  CATS.forEach(cat => {
+    let catLines = [];
+    cat.items.forEach(item => {
+      Object.entries(orderData).forEach(([k,d]) => {
+        if(d.id === item.id){
+          catLines.push({
+            name: item.name + (d.size ? ` (${d.size})` : ''),
+            qty: d.qty,
+            unit: item.price,
+            sub: d.qty * item.price
+          });
+        }
+      });
+    });
+    if(!catLines.length) return;
+
+    // category header
+    if(y > 260){ doc.addPage(); y = 20; }
+    doc.setFillColor(240,243,250);
+    doc.rect(M-2, y-4, W-2*M+4, 6, 'F');
+    doc.setFont('helvetica','bold');
+    doc.setFontSize(7.5);
+    doc.setTextColor(11,33,73);
+    doc.text(cat.label.toUpperCase(), M, y);
+    y += 5;
+
+    // table header
+    doc.setFont('helvetica','bold');
+    doc.setFontSize(7.5);
+    doc.setTextColor(90,100,128);
+    doc.text('ARTICOLO', M, y);
+    doc.text('QT.', 135, y, {align:'center'});
+    doc.text('PREZZO UNIT.', 158, y, {align:'center'});
+    doc.text('SUBTOTALE', W-M, y, {align:'right'});
+    y += 1;
+    doc.setDrawColor(220,225,238);
+    doc.setLineWidth(0.2);
+    doc.line(M, y, W-M, y);
+    y += 4;
+
+    catLines.forEach(l => {
+      if(y > 265){ doc.addPage(); y = 20; }
+      doc.setFont('helvetica','normal');
+      doc.setFontSize(8.5);
+      doc.setTextColor(30,40,70);
+      // truncate long names
+      const maxW = 105;
+      const nm = doc.getTextWidth(l.name) > maxW
+        ? l.name.substring(0, Math.floor(l.name.length * maxW / doc.getTextWidth(l.name)) - 2) + '…'
+        : l.name;
+      doc.text(nm, M, y);
+      doc.text(String(l.qty), 135, y, {align:'center'});
+      doc.text(`€ ${fmt(l.unit)}`, 158, y, {align:'center'});
+      doc.setFont('helvetica','bold');
+      doc.text(`€ ${fmt(l.sub)}`, W-M, y, {align:'right'});
+      y += 6;
+    });
+    y += 3;
+  });
+
+  // totale box
+  if(y > 255){ doc.addPage(); y = 20; }
+  doc.setDrawColor(201,168,76);
+  doc.setLineWidth(0.5);
+  doc.line(M, y, W-M, y);
+  y += 5;
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(11);
+  doc.setTextColor(11,33,73);
+  doc.text('TOTALE STIMATO', M, y);
+  doc.text(`€ ${fmt(total)}`, W-M, y, {align:'right'});
+  y += 4;
+  doc.setFont('helvetica','italic');
+  doc.setFontSize(7);
+  doc.setTextColor(90,100,128);
+  doc.text('* Il totale è una stima. Verrai contattata entro 2-3 giorni lavorativi per conferma disponibilità e pagamento.', M, y);
+  y += 8;
+
+  // note
+  if(note){
+    doc.setFont('helvetica','bold');
+    doc.setFontSize(8);
+    doc.setTextColor(11,33,73);
+    doc.text('NOTE', M, y); y += 4;
+    doc.setFont('helvetica','normal');
+    doc.setFontSize(8);
+    doc.setTextColor(30,40,70);
+    const noteLines = doc.splitTextToSize(note, W-2*M);
+    doc.text(noteLines, M, y);
+    y += noteLines.length * 4 + 4;
+  }
+
+  // footer
+  const pageCount = doc.internal.getNumberOfPages();
+  for(let i=1; i<=pageCount; i++){
+    doc.setPage(i);
+    doc.setFillColor(11,33,73);
+    doc.rect(0,287,W,10,'F');
+    doc.setFont('helvetica','normal');
+    doc.setFontSize(6.5);
+    doc.setTextColor(200,210,235);
+    doc.text('Ladybirds Milano Synchro Academy ASD  ·  C.F. 97846210157  ·  divise@ladybirds.it  ·  www.ladybirds.it', W/2, 293, {align:'center'});
+  }
+
+  const pdfName = `Ordine_Divise_${atleta.replace(/\s+/g,'_')}_${dateStr.replace(/\//g,'-')}.pdf`;
+
+  // ── 2. APRI MAILTO (prima) + SCARICA PDF (dopo) ────────────────
+  let body = `ORDINE DIVISE 2026-2027\n========================\n\n`;
+  body += `Atleta: ${atleta}\n`;
+  if(gen) body += `Genitore: ${gen}\n`;
+  body += `Email: ${email}\n`;
+  if(tel) body += `Telefono: ${tel}\n`;
+  body += `Data: ${dateStr}\n`;
+
+  CATS.forEach(cat => {
+    let catLines = '';
+    cat.items.forEach(item => {
+      Object.entries(orderData).forEach(([k,d]) => {
+        if(d.id === item.id)
+          catLines += `  • ${item.name}${d.size?' ('+d.size+')':''} ×${d.qty}  →  €${fmt(d.qty*d.price)}\n`;
+      });
+    });
+    if(catLines) body += `\n${cat.label.toUpperCase()}\n${catLines}`;
+  });
+
+  if(note) body += `\nNOTE\n${note}\n`;
+  body += `\n================================\nTOTALE STIMATO: € ${fmt(total)}\n================================\n\n`;
+  body += `Il totale è una stima soggetta a conferma.\nSarò contattata entro 2-3 giorni lavorativi per conferma e pagamento.\n\n`;
+  body += `⚠ Allega il PDF riepilogativo scaricato automaticamente.\n\n`;
+  body += `— Inviato tramite il modulo ordine divise di www.ladybirds.it`;
+
+  // ── PRIMA apri la mail (azione diretta utente), POI scarica il PDF
+  const subject = encodeURIComponent(`Ordine Divise 2026-2027 – ${atleta}`);
+  const bodyEnc = encodeURIComponent(body);
+  const cc = encodeURIComponent(email);
+  window.location.href = `mailto:divise@ladybirds.it?cc=${cc}&subject=${subject}&body=${bodyEnc}`;
+
+  // PDF scaricato con piccolo delay dopo che il mailto è già partito
+  setTimeout(() => { doc.save(pdfName); }, 500);
+
+  document.getElementById('confirm-overlay').classList.remove('show');
+}
+</script>
+</body>
+</html>

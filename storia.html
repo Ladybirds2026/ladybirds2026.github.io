@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="format-detection" content="telephone=no,date=no,address=no,email=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Avevamo tutto contro · Ladybirds Milano Synchro Academy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy:#0d1b3e; --navy2:#1e3a6e; --gold:#c9a227; --gold2:#e8c44a;
+      --white:#ffffff; --ice:#f5f7fc; --text:#1a1a2e; --gray:#64748b;
+      --border:#e2e8f0; --fd:'Playfair Display',serif; --ft:'Inter',sans-serif;
+    }
+    html { scroll-behavior:smooth; }
+    body { font-family:var(--ft); background:var(--white); color:var(--text); overflow-x:hidden; }
+
+    /* TOPBAR */
+    .topbar { position:fixed;top:0;left:0;right:0;z-index:301;background:var(--navy);height:34px;display:flex;align-items:center;justify-content:flex-end;padding:0 2.5rem;gap:1.2rem; }
+    .topbar a { color:rgba(255,255,255,.5);text-decoration:none;font-size:.6rem;font-weight:500;letter-spacing:.5px;display:flex;align-items:center;gap:.35rem;transition:color .2s; }
+    .topbar a:hover { color:#fff; }
+    .topbar-sep { color:rgba(255,255,255,.15); }
+    .topbar-et { color:var(--navy)!important;background:var(--gold);padding:.22rem .8rem;border-radius:3px;font-weight:700;font-size:.58rem;letter-spacing:1.2px;text-transform:uppercase; }
+    @media(max-width:960px){ .topbar{display:none;} }
+
+    /* NAV */
+    nav { position:fixed;top:34px;left:0;right:0;z-index:300;background:var(--white);height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;border-bottom:1px solid var(--border);box-shadow:0 2px 16px rgba(13,27,62,.08); }
+    .nav-logo { text-decoration:none; }
+    nav ul { list-style:none;display:flex; }
+    nav ul a { display:block;padding:0 1rem;line-height:64px;font-size:.62rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;color:var(--gray);border-bottom:3px solid transparent;transition:color .2s,border-color .2s; }
+    nav ul a:hover { color:var(--navy);border-bottom-color:var(--gold); }
+    nav ul a.active { color:var(--navy);font-weight:700;border-bottom-color:var(--gold); }
+    .nav-burger { display:none;flex-direction:column;justify-content:center;gap:5px;background:none;border:none;cursor:pointer;padding:8px;margin-right:-.5rem; }
+    .nav-burger span { display:block;width:22px;height:2px;background:var(--navy);border-radius:2px;transition:all .3s; }
+    .mobile-nav { display:none;position:fixed;top:64px;left:0;right:0;z-index:299;background:var(--white);border-bottom:2px solid var(--gold);box-shadow:0 4px 20px rgba(13,27,62,.15); }
+    .mobile-nav ul { list-style:none; }
+    .mobile-nav ul li { border-bottom:1px solid var(--border); }
+    .mobile-nav ul a { display:block;padding:.95rem 1.5rem;font-size:.72rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;color:var(--navy); }
+    .mobile-nav ul a.active { color:var(--gold); }
+    @media(max-width:960px){ nav{top:0;} nav ul{display:none;} .nav-burger{display:flex;} .mobile-nav.open{display:block;} }
+
+    /* HERO */
+    .article-hero {
+      margin-top:98px;
+      position:relative;
+      height:420px;
+      overflow:hidden;
+    }
+    .article-hero img {
+      width:100%; height:100%; object-fit:cover; object-position:center 30%; display:block;
+    }
+    .article-hero-overlay {
+      position:absolute; inset:0;
+      background:linear-gradient(to bottom, rgba(13,27,62,.3) 0%, rgba(13,27,62,.85) 100%);
+      display:flex; flex-direction:column; justify-content:flex-end;
+      padding:2.5rem 3rem 3rem;
+    }
+    .article-tag {
+      display:inline-block;font-size:.52rem;font-weight:700;letter-spacing:1.5px;
+      text-transform:uppercase;padding:.22rem .7rem;border-radius:2px;
+      background:#6a1b9a;color:#fff;margin-bottom:1rem;
+    }
+    .article-hero h1 {
+      font-family:var(--fd);
+      font-size:clamp(2rem,5vw,3.4rem);
+      color:#fff;
+      line-height:1.1;
+      max-width:800px;
+    }
+    .article-hero-line {
+      position:absolute;bottom:0;left:0;right:0;height:3px;
+      background:linear-gradient(90deg,var(--gold),var(--gold2),var(--gold));
+    }
+
+    /* ARTICLE BODY */
+    .article-wrap {
+      max-width:740px;
+      margin:0 auto;
+      padding:3.5rem 2rem 5rem;
+    }
+    .article-meta {
+      display:flex; align-items:center; gap:1.5rem;
+      padding-bottom:1.5rem; margin-bottom:2rem;
+      border-bottom:1px solid var(--border);
+      font-size:.72rem; color:var(--gray);
+    }
+    .article-body p {
+      font-size:1.05rem;
+      line-height:1.85;
+      color:#2d3748;
+      margin-bottom:1.6rem;
+    }
+    .article-body p.intro {
+      font-size:1.2rem;
+      font-weight:600;
+      color:var(--navy);
+      line-height:1.65;
+    }
+    .article-body .pull-quote {
+      border-left:4px solid var(--gold);
+      padding:.8rem 0 .8rem 1.5rem;
+      margin:2.5rem 0;
+      font-family:var(--fd);
+      font-size:1.3rem;
+      color:var(--navy);
+      line-height:1.4;
+      font-style:italic;
+    }
+    .article-body .firma {
+      margin-top:3rem;
+      padding-top:1.5rem;
+      border-top:1px solid var(--border);
+      font-size:.8rem;
+      font-weight:700;
+      color:var(--navy);
+      letter-spacing:1px;
+      text-transform:uppercase;
+    }
+    .back-link {
+      display:inline-flex; align-items:center; gap:.5rem;
+      font-size:.72rem; font-weight:600; letter-spacing:1px; text-transform:uppercase;
+      color:var(--gold); text-decoration:none; margin-bottom:2.5rem;
+    }
+    .back-link:hover { color:var(--navy); }
+
+    /* FOOTER */
+    footer { background:var(--navy);color:rgba(255,255,255,.7);padding:3.5rem 2.5rem 2rem; }
+    .ft-top { display:flex;justify-content:space-between;align-items:flex-start;gap:3rem;padding-bottom:2rem;border-bottom:1px solid rgba(255,255,255,.1);flex-wrap:wrap; }
+    .ft-sub { font-size:.63rem;color:rgba(255,255,255,.45); }
+    .ft-cf { font-size:.58rem;color:rgba(255,255,255,.3);margin-top:.25rem; }
+    .ft-nav { display:flex;gap:3.5rem;flex-wrap:wrap; }
+    .ft-col h5 { font-size:.57rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:.85rem; }
+    .ft-col ul { list-style:none;display:flex;flex-direction:column;gap:.45rem; }
+    .ft-col a { text-decoration:none;font-size:.74rem;color:rgba(255,255,255,.5);transition:color .2s; }
+    .ft-col a:hover { color:#fff; }
+    .ft-bot { display:flex;justify-content:space-between;align-items:center;padding-top:1.5rem;flex-wrap:wrap;gap:1rem; }
+    .ft-copy { font-size:.6rem;color:rgba(255,255,255,.3); }
+    .socials { display:flex;gap:.75rem; }
+    .s-btn { width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;text-decoration:none;color:rgba(255,255,255,.6);transition:border-color .2s,color .2s; }
+    .s-btn svg { width:18px;height:18px; }
+
+    @media(max-width:600px){
+      .article-hero { height:280px; margin-top:64px; }
+      .article-hero-overlay { padding:1.5rem 1.2rem 2rem; }
+      .article-wrap { padding:2rem 1.2rem 3.5rem; }
+      .article-body p { font-size:.95rem; }
+      .article-body p.intro { font-size:1.05rem; }
+      .article-body .pull-quote { font-size:1.1rem; }
+      footer { padding:2.5rem 1.2rem 1.5rem; }
+      .ft-top { flex-direction:column; gap:1.5rem; }
+      .ft-nav { gap:2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <a href="https://www.facebook.com/566344623425742" target="_blank">📘 Facebook</a>
+  <span class="topbar-sep">|</span>
+  <a href="https://www.instagram.com/teamladybirds_milano_ita/" target="_blank">📷 Instagram</a>
+  <span class="topbar-sep">|</span>
+  <a href="mailto:info@ladybirds.it">✉️ info@ladybirds.it</a>
+  <span class="topbar-sep">|</span>
+  <a href="https://www.milanoeastertrophy.it" target="_blank" class="topbar-et">Milano Easter Trophy →</a>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="img/logo-ladybirds.jpg" alt="Ladybirds Milano Synchro Academy" style="height:48px;width:auto;border-radius:4px;display:block;">
+  </a>
+  <ul>
+    <li><a href="index.html#home">Home</a></li>
+    <li><a href="index.html#staff">Staff</a></li>
+    <li><a href="index.html#teams">Teams 2026–2027</a></li>
+    <li><a href="index.html#risultati">Risultati Gare</a></li>
+    <li><a href="stages.html">Stage &amp; Camp</a></li>
+    <li><a href="news.html" class="active">News</a></li>
+    <li><a href="index.html#famiglia">MY LMSA</a></li>
+  </ul>
+  <button class="nav-burger" id="navBurger" aria-label="Menu" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-nav" id="mobileNav">
+  <ul>
+    <li><a href="index.html#home" onclick="closeNav()">Home</a></li>
+    <li><a href="index.html#staff" onclick="closeNav()">Staff</a></li>
+    <li><a href="index.html#teams" onclick="closeNav()">Teams 2026–2027</a></li>
+    <li><a href="index.html#risultati" onclick="closeNav()">Risultati Gare</a></li>
+    <li><a href="stages.html" onclick="closeNav()">Stage &amp; Camp</a></li>
+    <li><a href="news.html" onclick="closeNav()" class="active">News</a></li>
+    <li><a href="index.html#famiglia" onclick="closeNav()">MY LMSA</a></li>
+  </ul>
+</div>
+
+<!-- HERO -->
+<div class="article-hero">
+  <img src="img/worlds1.jpg" alt="Ladybirds ai Mondiali">
+  <div class="article-hero-overlay">
+    <span class="article-tag">Mondiali</span>
+    <h1>Quando il sogno<br>diventa Mondiale</h1>
+  </div>
+  <div class="article-hero-line"></div>
+</div>
+
+<!-- ARTICLE -->
+<article class="article-wrap">
+  <a href="news.html" class="back-link">← Torna alle news</a>
+
+  <div class="article-meta">
+    <span>Stagione 2025·2026</span>
+    <span>·</span>
+    <span>Ladybirds Milano Synchro Academy</span>
+  </div>
+
+  <div class="article-body">
+
+    <div style="text-align:center;margin-bottom:2rem;">
+      <img src="img/logo-vecchio.png" alt="Ladybirds Synchro Team Milano — Logo storico" style="max-width:320px;width:100%;height:auto;">
+    </div>
+
+    <p class="intro">Avevamo tutto contro.<br>Chi avrebbe scommesso su di noi? Noi sì.</p>
+
+    <p>C'era una volta una squadra che aveva una casa. Il Palazzetto del Ghiaccio Agorà non era soltanto il luogo in cui le Ladybirds si allenavano. Era il punto dal quale partiva ogni sogno, il luogo delle prime cadute, dei primi programmi, delle risate nello spogliatoio e delle ore trascorse insieme a costruire qualcosa che andava ben oltre lo sport.</p>
+
+    <p>Poi Agorà ha chiuso.</p>
+
+    <p>E, da un giorno all'altro, quella squadra si è ritrovata senza pista, senza un luogo stabile in cui allenarsi e senza sapere davvero che cosa sarebbe accaduto.</p>
+
+    <p>Per molte società sarebbe stata la fine.<br>Per noi è stato l'inizio della sfida più difficile.</p>
+
+    <div class="pull-quote">
+      "Per continuare a pattinare, le ragazze hanno iniziato ad allenarsi nei weekend a Bergamo."
+    </div>
+
+    <p>Poi è arrivata la possibilità di utilizzare il ghiaccio dell'Accademia del Ghiaccio di San Donato Milanese. Ma trovare una pista non significava aver ritrovato una casa.</p>
+
+    <p>Per molte atlete, ogni allenamento comportava un'ora di strada all'andata e un'altra ora al ritorno. Due ore sottratte allo studio, al riposo, alla famiglia e alla vita quotidiana.</p>
+
+    <p>E poi c'erano gli allenamenti.</p>
+
+    <p>Non tutte sono riuscite a resistere. Alcune ragazze hanno rinunciato: non perché avessero smesso di amare il pattinaggio, ma perché la distanza, gli orari e i sacrifici erano diventati troppo pesanti.</p>
+
+    <p>Nel pattinaggio sincronizzato, però, perdere anche una sola atleta può cambiare tutto. Significa modificare le posizioni, ricostruire le coreografie, ristabilire gli equilibri e, talvolta, mettere a rischio la possibilità stessa di gareggiare. Ogni abbandono lasciava un posto vuoto sul ghiaccio.</p>
+
+    <p>Eppure le ragazze rimaste continuavano a presentarsi. Salivano in macchina. Affrontavano il traffico. Arrivavano stanche. Indossavano i pattini e ricominciavano.</p>
+
+    <div class="pull-quote">
+      "Intorno al progetto c'erano dubbi, silenzi e persone convinte che non ce l'avremmo fatta. Avevamo tutto contro. Ma avevamo ancora una cosa che nessuno poteva toglierci: la volontà di continuare."
+    </div>
+
+    <p>Le Ladybirds hanno imparato a credere ancora più forte l'una nell'altra. Hanno trasformato ogni chilometro in determinazione, ogni rinuncia in forza e ogni difficoltà in un motivo per non mollare. Perché le guerriere non aspettano che la strada diventi facile. La percorrono anche quando sembra impossibile.</p>
+
+    <p>E così, le ragazze rimaste senza una pista sono arrivate sul ghiaccio di un Campionato Mondiale. Poi lo hanno fatto una seconda volta.</p>
+
+    <p><strong>Neuchâtel e Gothenburg</strong> non sono soltanto due città e non sono soltanto due competizioni. Sono il simbolo di tutto ciò che è stato necessario superare per arrivare fin lì. Sono le ore passate in macchina. Le sveglie anticipate. I ritorni a casa tardi. Gli allenamenti affrontati con la stanchezza addosso. Le compagne perdute lungo il cammino. I momenti in cui sarebbe stato più semplice fermarsi.</p>
+
+    <p>Partecipare a un Mondiale è un traguardo straordinario. Riuscire a farlo due volte, dopo aver perso la propria casa e affrontato una strada tanto difficile, significa aver costruito qualcosa che va oltre il risultato sportivo. Significa aver dimostrato che una squadra può essere messa alla prova, ostacolata e costretta a ricominciare, ma non può essere sconfitta finché continua a credere nel proprio sogno.</p>
+
+    <p>Da ottobre, la possibilità di allenarsi a Rho rappresenterà per noi un sollievo enorme. Significherà ridurre almeno in parte gli spostamenti, restituire tempo alle ragazze e alle loro famiglie e affrontare gli allenamenti con maggiore serenità.</p>
+
+    <p>Ma il sogno più grande rimane lo stesso. Tornare a casa. Tornare al Palazzetto del Ghiaccio Agorà. Rivedere le luci accese, sentire nuovamente il rumore delle lame su quel ghiaccio e ritrovare il luogo dal quale tutto era cominciato.</p>
+
+    <p>Fino ad allora continueremo a viaggiare, allenarci, cadere e rialzarci.</p>
+
+    <div class="pull-quote">
+      "Perché avevamo tutto contro.<br>Ma non avevamo alcuna intenzione di arrenderci."
+    </div>
+
+    <div class="firma">— Ladybirds Milano Synchro Academy</div>
+  </div>
+</article>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-top">
+    <div>
+      <img src="img/logo-ladybirds.jpg" alt="Ladybirds Milano Synchro Academy" style="height:56px;width:auto;display:block;margin-bottom:.8rem;border-radius:4px;">
+      <div class="ft-sub">Milano Synchro Academy A.S.D.</div>
+      <div class="ft-cf">CF 97846210157 · Dona il 5×1000</div>
+    </div>
+    <div class="ft-nav">
+      <div class="ft-col">
+        <h5>Pagine</h5>
+        <ul>
+          <li><a href="index.html#home">Home</a></li>
+          <li><a href="index.html#staff">Staff</a></li>
+          <li><a href="index.html#teams">Teams 2026–2027</a></li>
+          <li><a href="index.html#risultati">Risultati Gare</a></li>
+          <li><a href="stages.html">Stage &amp; Camp</a></li>
+          <li><a href="news.html">News</a></li>
+          <li><a href="index.html#famiglia">MY LMSA</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h5>Piste</h5>
+        <ul>
+          <li><a href="https://maps.google.com/?q=Accademia+del+Ghiaccio+San+Donato+Milanese" target="_blank">Accademia del Ghiaccio, San Donato</a></li>
+          <li><a href="https://maps.google.com/?q=Fiera+Milano+SS+Sempione+28+Rho+MI" target="_blank">Milan Ice Fiera Arena<br>SS Sempione 28, Rho (MI)</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h5>Competizioni</h5>
+        <ul>
+          <li><a href="https://www.milanoeastertrophy.it" target="_blank">Milano Easter Trophy ↗</a></li>
+          <li><a href="https://www.fisg.it/calendario-sincronizzato/" target="_blank">Calendario Gare FISG ↗</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h5>Contatti</h5>
+        <ul>
+          <li><a href="mailto:info@ladybirds.it">info@ladybirds.it</a></li>
+          <li><a href="https://wa.me/393389362018" target="_blank">WhatsApp ↗</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="ft-bot">
+    <div class="ft-copy">© 2026 Ladybirds Milano Synchro Academy A.S.D. · Tutti i diritti riservati</div>
+    <div class="socials">
+      <a href="https://www.instagram.com/teamladybirds_milano_ita/" class="s-btn" target="_blank" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <a href="https://www.facebook.com/566344623425742" class="s-btn" target="_blank" aria-label="Facebook">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+      </a>
+      <a href="https://wa.me/393389362018" class="s-btn" target="_blank" aria-label="WhatsApp">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+      </a>
+      <a href="mailto:info@ladybirds.it" class="s-btn" aria-label="Email">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script>
+function toggleNav() { document.getElementById('mobileNav').classList.toggle('open'); }
+function closeNav() { document.getElementById('mobileNav').classList.remove('open'); }
+</script>
+</body>
+</html>

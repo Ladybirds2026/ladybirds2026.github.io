@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="format-detection" content="telephone=no,date=no,address=no,email=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Stage &amp; Camp · Ladybirds Milano Synchro Academy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #0d1b3e;
+      --navy2:  #1e3a6e;
+      --gold:   #c9a227;
+      --gold2:  #e8c44a;
+      --white:  #ffffff;
+      --ice:    #f5f7fc;
+      --text:   #1a1a2e;
+      --gray:   #64748b;
+      --border: #e2e8f0;
+      --rosso:  #c9a227;
+      --azzurro:#1e3a6e;
+      --testo:  #1a1a2e;
+      --fd: 'Playfair Display', serif;
+      --ft: 'Inter', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--ft); background: var(--white); color: var(--testo); overflow-x: hidden; }
+
+    /* ═══ TOPBAR ═══ */
+    .topbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 301;
+      background: var(--navy);
+      height: 34px; display: flex; align-items: center; justify-content: flex-end;
+      padding: 0 2.5rem; gap: 1.2rem;
+    }
+    .topbar a {
+      color: rgba(255,255,255,.5); text-decoration: none;
+      font-size: .6rem; font-weight: 500; letter-spacing: .5px;
+      display: flex; align-items: center; gap: .35rem;
+      transition: color .2s; font-family: var(--ft);
+    }
+    .topbar a:hover { color: #fff; }
+    .topbar-sep { color: rgba(255,255,255,.15); }
+    .topbar-et {
+      color: var(--navy) !important; background: var(--gold);
+      padding: .22rem .8rem; border-radius: 3px;
+      font-weight: 700; font-size: .58rem; letter-spacing: 1.2px; text-transform: uppercase;
+    }
+    .topbar-et:hover { background: var(--gold2) !important; }
+    @media(max-width:960px){ .topbar { display: none; } }
+
+    /* ═══ NAV ═══ */
+    nav {
+      position: fixed; top: 34px; left: 0; right: 0; z-index: 300;
+      background: var(--white);
+      height: 64px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2.5rem;
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 2px 16px rgba(13,27,62,.08);
+    }
+    .nav-logo { text-decoration: none; display: flex; align-items: center; }
+    nav ul { list-style: none; display: flex; }
+    nav ul a {
+      display: block; padding: 0 1rem; line-height: 64px;
+      font-size: .62rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+      text-decoration: none; color: var(--gray);
+      border-bottom: 3px solid transparent;
+      transition: color .2s, border-color .2s; font-family: var(--ft);
+    }
+    nav ul a:hover { color: var(--navy); border-bottom-color: var(--gold); }
+    nav ul a.active { color: var(--navy); font-weight: 700; border-bottom-color: var(--gold); }
+
+    /* ═══ PAGE HERO ═══ */
+    .page-hero {
+      margin-top: 98px;
+      background: linear-gradient(105deg, var(--navy) 0%, var(--navy2) 60%, #1a4a80 100%);
+      padding: 4rem 2.5rem 3.5rem;
+      position: relative; overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute; top: -40px; right: -60px;
+      width: 420px; height: 420px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,162,39,.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .page-hero-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
+    .page-hero-eyebrow {
+      font-size: .58rem; font-weight: 700; letter-spacing: 3.5px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1rem;
+    }
+    .page-hero h1 {
+      font-family: var(--fd); font-size: clamp(2.4rem, 5vw, 4rem);
+      color: #fff; line-height: 1; margin-bottom: 1rem;
+    }
+    .page-hero h1 em { font-style: italic; color: var(--gold); }
+    .page-hero-sub {
+      font-size: 1rem; color: rgba(255,255,255,.7); max-width: 600px; line-height: 1.7;
+    }
+    .page-hero-line {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold2), var(--gold));
+    }
+
+    /* ═══ BREADCRUMB ═══ */
+    .breadcrumb {
+      background: var(--ice); border-bottom: 1px solid var(--border);
+      padding: .7rem 2.5rem;
+      font-size: .65rem; color: var(--gray);
+    }
+    .breadcrumb a { color: var(--gray); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--navy); }
+    .breadcrumb span { margin: 0 .4rem; opacity: .4; }
+
+    /* ═══ MAIN SECTION ═══ */
+    .main-section { max-width: 1100px; margin: 0 auto; padding: 4rem 2.5rem; }
+
+    /* ═══ KICKER ═══ */
+    .kicker { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.2rem; }
+    .kicker span {
+      font-size: .55rem; font-weight: 700; letter-spacing: 3.5px; text-transform: uppercase;
+      color: var(--gold);
+      padding: .3rem .8rem;
+      border: 1px solid rgba(201,162,39,.35);
+      border-radius: 2px;
+    }
+    .kicker::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    /* ═══ INTRO TEXT ═══ */
+    .intro-block {
+      max-width: 760px; margin: 0 auto 3.5rem;
+      text-align: left;
+    }
+    .intro-block p {
+      font-size: .92rem; color: var(--gray); line-height: 1.8; margin-bottom: 1rem;
+    }
+    .intro-block p:last-child { margin-bottom: 0; }
+    .intro-block strong { color: var(--navy); }
+
+    /* ═══ DISCIPLINE PILLS ═══ */
+    .discipline-pills {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem;
+      margin: 1.5rem 0 0;
+    }
+    .disc-pill {
+      background: var(--navy); color: #fff;
+      font-size: .62rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+      padding: .4rem 1rem; border-radius: 3px;
+    }
+    .disc-pill.light {
+      background: transparent; color: var(--navy);
+      border: 1.5px solid var(--navy);
+    }
+
+    /* ═══ STAGE CARDS ═══ */
+    .stage-cards {
+      display: flex; flex-direction: column;
+      gap: 2rem; margin-bottom: 4rem;
+    }
+
+    .stage-card {
+      border-radius: 12px; overflow: hidden;
+      border: 1px solid var(--border); background: var(--white);
+      transition: box-shadow .25s;
+      display: grid; grid-template-columns: 280px 1fr;
+      position: relative;
+    }
+    .stage-card:hover { box-shadow: 0 8px 30px rgba(16,48,94,.12); }
+
+    .stage-card-img {
+      overflow: hidden; position: relative;
+      background: var(--ice);
+      min-height: 320px;
+    }
+    .stage-card-img img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+    .stage-card-img .img-ph {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: .6rem; width: 100%; height: 100%;
+      background: linear-gradient(160deg, var(--navy), var(--navy2));
+    }
+    .stage-card-img .img-ph span { font-size: 3rem; opacity: .2; }
+    .stage-card-img .img-ph p {
+      font-size: .58rem; letter-spacing: 2.5px; text-transform: uppercase;
+      color: rgba(255,255,255,.35);
+    }
+    .stage-card-img::after {
+      content: ''; position: absolute; top: 0; right: 0; bottom: 0; width: 3px;
+      background: linear-gradient(180deg, var(--rosso), var(--azzurro));
+    }
+
+    .stage-card-body { padding: 2rem 2.2rem; display: flex; flex-direction: column; justify-content: center; }
+    .stage-type {
+      font-size: .55rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--rosso); margin-bottom: .4rem;
+    }
+    .stage-title {
+      font-family: var(--fd); font-size: 2rem; color: var(--navy);
+      line-height: 1.05; margin-bottom: .6rem;
+    }
+    .stage-desc {
+      font-size: .85rem; color: var(--gray); line-height: 1.75; margin-bottom: 1.2rem;
+    }
+
+    .stage-cats { display: flex; flex-wrap: wrap; gap: .4rem; margin-bottom: 1.2rem; }
+    .stage-cat {
+      background: var(--ice); border: 1px solid var(--border); border-radius: 3px;
+      font-size: .6rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+      color: var(--navy); padding: .22rem .65rem;
+    }
+    .stage-cat.hl { background: var(--rosso); border-color: var(--rosso); color: #fff; }
+    .stage-cat.hl-blue { background: var(--azzurro); border-color: var(--azzurro); color: #fff; }
+
+    .stage-details { display: flex; flex-direction: column; gap: .45rem; margin-bottom: 1.2rem; }
+    .stage-detail { display: flex; align-items: flex-start; gap: .7rem; font-size: .8rem; color: var(--testo); }
+    .stage-detail-icon { flex-shrink: 0; width: 1.2rem; text-align: center; }
+
+    @media(max-width:700px){
+      .stage-card { grid-template-columns: 1fr; }
+      .stage-card-img { min-height: 240px; }
+      .stage-card-img::after { top:auto; right:0; bottom:0; left:0; width:auto; height:3px; background: linear-gradient(90deg, var(--rosso), var(--azzurro)); }
+    }
+
+    /* ═══ CORVARA FULL-WIDTH ═══ */
+    .corvara-section {
+      background: linear-gradient(160deg, var(--navy) 0%, var(--navy2) 100%);
+      border-radius: 14px; overflow: hidden;
+      display: grid; grid-template-columns: 1fr 1.2fr;
+      margin-bottom: 1rem;
+    }
+    .corvara-img {
+      position: relative; overflow: hidden; min-height: 420px;
+      background: linear-gradient(160deg, var(--navy), var(--navy2));
+      display: flex; align-items: center; justify-content: center;
+    }
+    .corvara-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .corvara-img .img-ph {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: .8rem; width: 100%; height: 100%;
+    }
+    .corvara-img .img-ph span { font-size: 5rem; opacity: .12; }
+    .corvara-img .img-ph p {
+      font-size: .6rem; letter-spacing: 2.5px; text-transform: uppercase;
+      color: rgba(255,255,255,.28);
+    }
+
+    .corvara-body { padding: 3rem 3.2rem; display: flex; flex-direction: column; justify-content: center; }
+    .corvara-tag {
+      font-size: .57rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: .9rem;
+    }
+    .corvara-title {
+      font-family: var(--fd); font-size: clamp(2rem, 3.5vw, 2.8rem);
+      color: #fff; line-height: 1.05; margin-bottom: 1rem;
+    }
+    .corvara-title em { font-style: italic; color: var(--gold); }
+    .corvara-desc {
+      font-size: .88rem; color: rgba(255,255,255,.65); line-height: 1.8; margin-bottom: 1.6rem;
+    }
+
+    .corvara-coach-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; margin-bottom: 1.6rem;
+    }
+    .corvara-coach-box {
+      background: rgba(255,255,255,.07); border-radius: 8px; padding: .75rem 1rem;
+    }
+    .corvara-coach-label {
+      font-size: .5rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: .25rem;
+    }
+    .corvara-coach-label.blue { color: rgba(255,255,255,.4); }
+    .corvara-coach-name { font-size: .85rem; font-weight: 800; color: #fff; }
+    .corvara-coach-role { font-size: .65rem; color: rgba(255,255,255,.45); margin-top: .1rem; }
+
+    .corvara-info { display: flex; flex-direction: column; gap: .55rem; margin-bottom: 1.8rem; }
+    .corvara-info-row {
+      display: flex; align-items: center; gap: .7rem;
+      font-size: .82rem; color: rgba(255,255,255,.75);
+    }
+    .corvara-info-icon { font-size: 1rem; width: 1.3rem; text-align: center; flex-shrink: 0; }
+
+    .btn-corvara {
+      display: inline-block; padding: .8rem 2rem;
+      background: #fff; color: var(--navy);
+      font-size: .68rem; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
+      text-decoration: none; border-radius: 4px;
+      transition: background .2s; align-self: flex-start;
+    }
+    .btn-corvara:hover { background: var(--gold); color: var(--navy); }
+
+    /* ═══ CTA BANNER ═══ */
+    .cta-banner {
+      background: var(--ice); border-radius: 12px;
+      padding: 2.5rem 2rem; text-align: center; margin-top: 4rem;
+      border: 1px solid var(--border);
+    }
+    .cta-banner h3 {
+      font-family: var(--fd); font-size: 1.6rem; color: var(--navy); margin-bottom: .6rem;
+    }
+    .cta-banner p {
+      font-size: .88rem; color: var(--gray); margin-bottom: 1.5rem; line-height: 1.7;
+    }
+    .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-block; padding: .8rem 2rem;
+      background: var(--navy); color: #fff;
+      font-size: .68rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+      text-decoration: none; border-radius: 4px; transition: background .2s;
+    }
+    .btn-primary:hover { background: var(--navy2); }
+    .btn-secondary {
+      display: inline-block; padding: .8rem 2rem;
+      background: transparent; color: var(--navy);
+      font-size: .68rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+      text-decoration: none; border-radius: 4px;
+      border: 1.5px solid var(--navy); transition: background .2s, color .2s;
+    }
+    .btn-secondary:hover { background: var(--navy); color: #fff; }
+
+    /* ═══ FOOTER ═══ */
+    footer { background: var(--navy); color: rgba(255,255,255,.7); padding: 3.5rem 2.5rem 2rem; }
+    .ft-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 3rem; padding-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,.1); flex-wrap: wrap; }
+    .ft-sub { font-size: .63rem; color: rgba(255,255,255,.45); }
+    .ft-cf { font-size: .58rem; color: rgba(255,255,255,.3); margin-top: .25rem; }
+    .ft-nav { display: flex; gap: 3.5rem; flex-wrap: wrap; }
+    .ft-col h5 { font-size: .57rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); margin-bottom: .85rem; }
+    .ft-col ul { list-style: none; display: flex; flex-direction: column; gap: .45rem; }
+    .ft-col a { text-decoration: none; font-size: .74rem; color: rgba(255,255,255,.5); transition: color .2s; }
+    .ft-col a:hover { color: #fff; }
+    .ft-bot { display: flex; justify-content: space-between; align-items: center; padding-top: 1.5rem; flex-wrap: wrap; gap: 1rem; }
+    .ft-copy { font-size: .6rem; color: rgba(255,255,255,.3); }
+    .socials { display: flex; gap: .75rem; }
+    .s-btn { width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255,255,255,.25); display: flex; align-items: center; justify-content: center; text-decoration: none; color: rgba(255,255,255,.6); transition: border-color .2s, color .2s; }
+    .s-btn svg { width: 20px; height: 20px; }
+    .s-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* ═══ SECTION DIVIDER ═══ */
+    .section-divider { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
+
+    /* HAMBURGER */
+    .nav-burger { display:none;flex-direction:column;justify-content:center;gap:5px;background:none;border:none;cursor:pointer;padding:8px;margin-right:-.5rem; }
+    .nav-burger span { display:block;width:22px;height:2px;background:var(--navy);border-radius:2px;transition:all .3s; }
+    .mobile-nav { display:none;position:fixed;top:64px;left:0;right:0;z-index:299;background:var(--white);border-bottom:2px solid var(--gold);box-shadow:0 4px 20px rgba(13,27,62,.15); }
+    .mobile-nav ul { list-style:none; }
+    .mobile-nav ul li { border-bottom:1px solid var(--border); }
+    .mobile-nav ul a { display:block;padding:.95rem 1.5rem;font-size:.72rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;color:var(--navy); }
+    .mobile-nav ul a.active { color:var(--gold); }
+
+    /* ═══ RESPONSIVE ═══ */
+    @media(max-width:960px){
+      nav { top:0; padding:0 1.5rem; }
+      nav ul { display:none; }
+      .nav-burger { display:flex; }
+      .mobile-nav.open { display:block; }
+      .page-hero { margin-top:64px; padding:2.5rem 1.5rem 2rem; }
+      .main-section { padding:3rem 1.5rem; }
+      .stage-cards { grid-template-columns:1fr; }
+      .corvara-section { grid-template-columns:1fr; }
+      .corvara-img { min-height:240px; }
+      .corvara-body { padding:2rem 1.5rem; }
+      .corvara-coach-grid { grid-template-columns:1fr 1fr; }
+      .breadcrumb { padding:.7rem 1.5rem; }
+      footer { padding:2.5rem 1.5rem 1.5rem; }
+      .ft-nav { gap:2rem; }
+    }
+    @media(max-width:600px){
+      .corvara-coach-grid { grid-template-columns:1fr; }
+      .coach-grid { grid-template-columns:1fr; }
+      .page-hero h1 { font-size:2rem; }
+      /* Tematici: forza 1 colonna */
+      .tematici-grid { grid-template-columns:1fr !important; }
+      /* Immagini coach: altezza ridotta su mobile */
+      .coach-img-box img { height:180px !important; }
+      /* Stage card foto: ridotta */
+      .stage-card-img { min-height:180px !important; }
+      /* Corvara img ridotta */
+      .corvara-img { min-height:180px !important; }
+      /* Padding interno card ridotto */
+      .stage-card-body { padding:1.2rem 1rem !important; }
+      .corvara-body { padding:1.5rem 1rem !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <a href="https://www.facebook.com/566344623425742" target="_blank">📘 Facebook</a>
+  <span class="topbar-sep">|</span>
+  <a href="https://www.instagram.com/teamladybirds_milano_ita/" target="_blank">📷 Instagram</a>
+  <span class="topbar-sep">|</span>
+  <a href="mailto:info@ladybirds.it">✉️ info@ladybirds.it</a>
+  <span class="topbar-sep">|</span>
+  <a href="https://www.milanoeastertrophy.it" target="_blank" class="topbar-et">Milano Easter Trophy →</a>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="img/logo-ladybirds.jpg" alt="Ladybirds Milano Synchro Academy" style="height:48px;width:auto;border-radius:4px;display:block;">
+  </a>
+  <ul>
+    <li><a href="index.html#home" data-lang-key="nav_home">Home</a></li>
+    <li><a href="index.html#staff" data-lang-key="nav_staff">Staff</a></li>
+    <li><a href="index.html#teams" data-lang-key="nav_teams">Teams 2026–2027</a></li>
+    <li><a href="index.html#risultati" data-lang-key="nav_risultati">Risultati Gare</a></li>
+    <li><a href="stages.html" class="active" data-lang-key="nav_stage">Stage &amp; Camp</a></li>
+    <li><a href="news.html" data-lang-key="nav_news">News</a></li>
+    <li><a href="index.html#famiglia" data-lang-key="nav_lmsa">MY LMSA</a></li>
+  </ul>
+  <button id="lang-btn" onclick="setLang(currentLang==='it'?'en':'it')" style="background:none;border:1.5px solid var(--gold);color:var(--navy);font-size:.6rem;font-weight:700;letter-spacing:1.5px;padding:.3rem .7rem;border-radius:4px;cursor:pointer;font-family:var(--ft);">EN</button>
+  <button class="nav-burger" id="navBurger" aria-label="Menu" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-nav" id="mobileNav">
+  <ul>
+    <li><a href="index.html#home" onclick="closeNav()" data-lang-key="nav_home">Home</a></li>
+    <li><a href="index.html#staff" onclick="closeNav()" data-lang-key="nav_staff">Staff</a></li>
+    <li><a href="index.html#teams" onclick="closeNav()" data-lang-key="nav_teams">Teams 2026–2027</a></li>
+    <li><a href="index.html#risultati" onclick="closeNav()" data-lang-key="nav_risultati">Risultati Gare</a></li>
+    <li><a href="stages.html" onclick="closeNav()" class="active" data-lang-key="nav_stage">Stage &amp; Camp</a></li>
+    <li><a href="news.html" onclick="closeNav()" data-lang-key="nav_news">News</a></li>
+    <li><a href="index.html#famiglia" onclick="closeNav()" data-lang-key="nav_lmsa">MY LMSA</a></li>
+  </ul>
+  <div style="padding:.8rem 1.5rem;border-top:1px solid var(--border);">
+    <button class="lang-btn-mobile" onclick="setLang(currentLang==='it'?'en':'it');document.getElementById('mobileNav').classList.remove('open')" style="background:none;border:1.5px solid var(--gold);color:var(--navy);font-size:.65rem;font-weight:700;letter-spacing:1.5px;padding:.4rem 1rem;border-radius:4px;cursor:pointer;">IT / EN</button>
+  </div>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <h1 data-lang-key="stages_hero_h1">Stage &amp; <em>Camp</em></h1>
+    <p class="page-hero-sub" data-lang-key="stages_hero_sub">Coach di livello internazionale. Per chi vuole diventare davvero preciso sul ghiaccio, qualunque sia la propria disciplina.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:.6rem;margin:1.2rem 0 0;">
+      <span style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);color:#fff;font-size:.6rem;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;padding:.35rem .9rem;border-radius:3px;" data-lang-key="stages_pill1">Sincronizzato</span>
+      <span style="background:rgba(201,162,39,.18);border:1px solid rgba(201,162,39,.4);color:var(--gold);font-size:.6rem;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;padding:.35rem .9rem;border-radius:3px;" data-lang-key="stages_pill2">Pattinaggio Artistico</span>
+      <span style="background:rgba(201,162,39,.18);border:1px solid rgba(201,162,39,.4);color:var(--gold);font-size:.6rem;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;padding:.35rem .9rem;border-radius:3px;" data-lang-key="stages_pill3">Danza su Ghiaccio</span>
+    </div>
+  </div>
+  <div class="page-hero-line"></div>
+</div>
+
+
+<!-- MAIN CONTENT -->
+<main class="main-section">
+
+  <!-- INTRO -->
+  <div class="intro-block">
+    <p><strong>Nel sincronizzato, ogni dettaglio parla.<br>Tante lame. Un solo movimento.</strong></p>
+    <p>Non esiste un passo fuori tempo che possa passare inosservato. Non esiste un angolo impreciso, una linea spezzata o un'esitazione che il ghiaccio non riveli.</p>
+    <p>Il pattinaggio sincronizzato porta la precisione a un livello assoluto: obbliga ogni atleta ad ascoltare, controllare e perfezionare ogni centimetro del proprio movimento.</p>
+    <p>Per questo i nostri stage tematici non sono riservati esclusivamente a chi pratica sincronizzato. Sono aperti a pattinatori artistici, danzatori su ghiaccio e atleti di ogni livello e provenienza che vogliono migliorare tecnica, controllo e qualità di esecuzione.</p>
+    <p>Allenarsi nel sincronizzato significa imparare a non lasciare nulla al caso.</p>
+    <p>E quando impari a muoverti alla perfezione insieme agli altri, quella precisione resta con te. In ogni passo. In ogni elemento. In ogni performance.</p>
+  </div>
+
+  <!-- STAGE CARDS -->
+  <div class="kicker"><span data-lang-key="stages_full_tematici_kicker">Stage Tematici</span></div>
+  <div class="tematici-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;margin-bottom:4rem;">
+
+    <!-- CARD 1: INTRODUZIONE AL SYNCHRO 9 -->
+    <div style="border:1px solid var(--border);border-radius:12px;overflow:hidden;background:#fff;display:flex;flex-direction:column;">
+      <!-- Foto -->
+      <div style="position:relative;background:var(--navy);">
+        <img src="img/milja.jpg" alt="Milja Sarkkinen" class="coach-img-box" style="width:100%;height:320px;object-fit:contain;object-position:center;background:#f5f7fc;display:block;opacity:.9;">
+        <div style="position:absolute;bottom:1rem;right:1rem;transform:rotate(-12deg);border:4px solid rgba(192,57,43,.85);border-radius:8px;padding:.6rem 1.2rem;text-align:center;pointer-events:none;z-index:10;">
+          <div style="font-size:1.6rem;font-weight:900;letter-spacing:4px;color:rgba(192,57,43,.9);text-transform:uppercase;line-height:1;">SOLD OUT</div>
+          <div style="font-size:.5rem;font-weight:700;letter-spacing:3px;color:rgba(192,57,43,.7);text-transform:uppercase;margin-top:.2rem;">Esaurito</div>
+        </div>
+        <div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--navy));"></div>
+      </div>
+      <div style="padding:1.6rem 1.8rem;display:flex;flex-direction:column;flex:1;">
+
+        <!-- 1. TITOLO -->
+        <div style="font-size:.55rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem;" data-lang-key="stages_s9_type">Nuova disciplina olimpica · 3 giorni</div>
+        <div style="font-family:var(--fd);font-size:1.7rem;color:var(--navy);line-height:1.1;margin-bottom:1.2rem;" data-lang-key="stages_s9_title">Introduzione al<br>Synchro 9</div>
+
+        <!-- 2. COACH -->
+        <div style="margin-bottom:1.2rem;">
+          <div style="font-size:.52rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem;" data-lang-key="stages_s9_coach_lbl">Coach</div>
+          <div style="display:flex;flex-direction:column;gap:.5rem;">
+            <div style="display:flex;align-items:flex-start;gap:.6rem;">
+              <div style="width:3px;background:var(--gold);border-radius:2px;flex-shrink:0;align-self:stretch;"></div>
+              <div>
+                <div style="font-size:.8rem;font-weight:700;color:var(--navy);">Milja Sarkkinen</div>
+                <div style="font-size:.68rem;color:var(--gray);">International Synchro Coach · 2× Junior World Champion Coach</div>
+              </div>
+            </div>
+            <div style="font-size:.72rem;color:var(--gray);padding-left:.9rem;">+ Cristina Pastorelli · Marilù Guarneri · Francesco Riva · Sara Nufris · Rebecca Sciarabba</div>
+          </div>
+        </div>
+
+        <!-- 3. DESCRIZIONE -->
+        <p style="font-size:.83rem;color:var(--gray);line-height:1.7;margin-bottom:1.2rem;" data-lang-key="stages_s9_desc">Il Synchro 9 è la nuova disciplina olimpica del pattinaggio sincronizzato: nove atleti, tecnica di altissimo livello, piena libertà coreografica. Tre giorni per scoprire come si allena, si costruisce e si compete con coach di livello mondiale.</p>
+
+        <!-- 4. APERTO A -->
+        <div style="margin-bottom:1.2rem;">
+          <div style="font-size:.52rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin-bottom:.5rem;" data-lang-key="stages_s9_aperto_lbl">Aperto a</div>
+          <div style="display:flex;flex-wrap:wrap;gap:.4rem;">
+            <span style="background:var(--gold);color:#fff;font-size:.58rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:.22rem .65rem;border-radius:3px;">Synchro 9</span>
+            <span style="background:var(--navy);color:#fff;font-size:.58rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:.22rem .65rem;border-radius:3px;">Sincronizzato</span>
+            <span style="background:var(--ice);border:1px solid var(--border);color:var(--navy);font-size:.58rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:.22rem .65rem;border-radius:3px;">Artistico</span>
+            <span style="background:var(--ice);border:1px solid var(--border);color:var(--navy);font-size:.58rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:.22rem .65rem;border-radius:3px;">Danza su Ghiaccio</span>
+          </div>
+        </div>
+
+        <!-- 5. DATE + LUOGO -->
+        <div style="font-size:.78rem;color:var(--testo);margin-bottom:.35rem;">📅 8 · 9 · 10 Maggio 2026</div>
+        <div style="font-size:.78rem;color:var(--testo);margin-bottom:.35rem;">📍 Palazzo del Ghiaccio, San Donato Milanese</div>
+
+        <!-- 6. POSTI LIMITATI -->
+        <div style="display:flex;align-items:center;gap:.5rem;margin-top:.6rem;margin-bottom:1.4rem;padding:.55rem .8rem;background:rgba(201,162,39,.08);border:1px solid rgba(201,162,39,.3);border-radius:4px;">
+          <span style="font-size:.65rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);" data-lang-key="stages_s9_posti">Posti limitati</span>
+          <span style="color:rgba(201,162,39,.4);font-size:.7rem;">·</span>
+          <span style="font-size:.65rem;font-weight:600;color:var(--gray);" data-lang-key="stages_s9_scad">Iscrizione entro il 2 Maggio</span>
+        </div>
+
+        <a href="mailto:info@ladybirds.it?subject=Informazioni Synchro Camp" style="display:block;text-align:center;padding:.75rem 1rem;background:var(--navy);color:#fff;font-size:.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;border-radius:4px;margin-top:auto;" data-lang-key="stages_s9_btn">Richiedi informazioni →</a>
+      </div>
+    </div>
+
+    <!-- CARD 2: SYNCHRO 9 DEVELOPMENT -->
+    <div style="border:1px solid var(--border);border-radius:12px;overflow:hidden;background:#fff;display:flex;flex-direction:column;">
+      <!-- Foto -->
+      <div style="position:relative;background:var(--ice);">
+        <img src="img/kaisa.jpg" alt="Kaisa Arrateig" class="coach-img-box" style="width:100%;height:320px;object-fit:contain;object-position:center;background:#f5f7fc;display:block;opacity:.9;">
+        <div style="position:absolute;bottom:1rem;right:1rem;transform:rotate(-12deg);border:4px solid rgba(192,57,43,.85);border-radius:8px;padding:.6rem 1.2rem;text-align:center;pointer-events:none;z-index:10;">
+          <div style="font-size:1.6rem;font-weight:900;letter-spacing:4px;color:rgba(192,57,43,.9);text-transform:uppercase;line-height:1;">SOLD OUT</div>
+          <div style="font-size:.5rem;font-weight:700;letter-spacing:3px;color:rgba(192,57,43,.7);text-transform:uppercase;margin-top:.2rem;">Esaurito</div>
+        </div>
+        <div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--navy));"></div>
+      </div>
+      <div style="padding:1.6rem 1.8rem;display:flex;flex-direction:column;flex:1;">
+
+        <!-- 1. TITOLO -->
+        <div style="font-size:.55rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem;" data-lang-key="stages_ka_type">Synchro 9 · Perfezionamento · 4 giorni</div>
+        <div style="font-family:var(--fd);font-size:1.7rem;color:var(--navy);line-height:1.1;margin-bottom:.25rem;" data-lang-key="stages_ka_title">Synchro 9<br>Development</div>
+        <div style="font-size:.75rem;color:var(--gray);margin-bottom:1.2rem;" data-lang-key="stages_ka_sub">con Kaisa Arrateig</div>
+
+        <!-- 2. COACH -->
+        <div style="margin-bottom:1.2rem;">
+          <div style="font-size:.52rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem;">Coach</div>
+          <div style="display:flex;align-items:flex-start;gap:.6rem;">
+            <div style="width:3px;background:var(--gold);border-radius:2px;flex-shrink:0;align-self:stretch;"></div>
+            <div>
+              <div style="font-size:.8rem;font-weight:700;color:var(--navy);">Kaisa Arrateig</div>
+              <div style="font-size:.68rem;color:var(--gray);">Head Coach Helsinki Rockettes · 4× World Champion Coach</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. DESCRIZIONE -->
+        <p style="font-size:.83rem;color:var(--gray);line-height:1.7;margin-bottom:1.2rem;" data-lang-key="stages_ka_desc">Quattro giorni intensivi per portare il Synchro 9 al livello successivo. Formazioni, precisione millimetrica, identità di squadra e visione coreografica con una delle coach più titolate al mondo.</p>
+
+        <!-- 4. APERTO A -->
+        <div style="margin-bottom:1.2rem;">
+          <div style="font-size:.52rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin-bottom:.5rem;">Aperto a</div>
+          <div style="display:flex;flex-wrap:wrap;gap:.4rem;">
+            <span style="background:var(--gold);color:#fff;font-size:.58rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:.22rem .65rem;border-radius:3px;">Senior Synchro 9</span>
+            <span style="background:var(--gold);color:#fff;font-size:.58rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:.22rem .65rem;border-radius:3px;">Junior Synchro 9</span>
+            <span style="background:var(--ice);border:1px solid var(--border);color:var(--navy);font-size:.58rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:.22rem .65rem;border-radius:3px;">ISU Junior 12-16</span>
+            <span style="background:var(--ice);border:1px solid var(--border);color:var(--navy);font-size:.58rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:.22rem .65rem;border-radius:3px;">ISU Senior 12-16</span>
+          </div>
+        </div>
+
+        <!-- 5. DATE + LUOGO -->
+        <div style="font-size:.78rem;color:var(--testo);margin-bottom:.35rem;">📅 14 · 15 · 16 · 17 Giugno 2026</div>
+        <div style="font-size:.78rem;color:var(--testo);margin-bottom:.35rem;">📍 Accademia del Ghiaccio, San Donato Milanese</div>
+
+        <!-- 6. POSTI LIMITATI -->
+        <div style="display:flex;align-items:center;gap:.5rem;margin-top:.6rem;margin-bottom:1.4rem;padding:.55rem .8rem;background:rgba(201,162,39,.08);border:1px solid rgba(201,162,39,.3);border-radius:4px;">
+          <span style="font-size:.65rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);" data-lang-key="stages_ka_posti">Posti limitati</span>
+          <span style="color:rgba(201,162,39,.4);font-size:.7rem;">·</span>
+          <span style="font-size:.65rem;font-weight:600;color:var(--gray);" data-lang-key="stages_ka_scad">Iscrizione entro il 7 Giugno</span>
+        </div>
+
+        <a href="mailto:info@ladybirds.it?subject=Informazioni Stage Kaisa Arrateig" style="display:block;text-align:center;padding:.75rem 1rem;background:var(--navy);color:#fff;font-size:.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;border-radius:4px;margin-top:auto;" data-lang-key="stages_ka_btn">Richiedi informazioni →</a>
+      </div>
+    </div>
+
+  </div>
+
+    <!-- CORVARA SUMMER CAMP -->
+  <div class="kicker"><span data-lang-key="stages_corvara_kicker">Summer Camp · Corvara 2026</span></div>
+  <div class="corvara-section">
+    <div class="corvara-img">
+      <img src="img/stage corvara.jpg" alt="Corvara Summer Camp 2026" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="img-ph" style="display:none;">
+        <span>🏔️</span>
+        <p>Corvara · Alta Badia · Dolomiti</p>
+      </div>
+    </div>
+    <div class="corvara-body">
+      <div class="corvara-tag" data-lang-key="stages_corvara_tag">12 – 26 Luglio 2026 · Alta Badia · Dolomiti</div>
+      <h3 class="corvara-title" data-lang-key="stages_corvara_h3">Corvara è dove comincia<br><em>la tua prossima stagione.</em></h3>
+      <p class="corvara-desc" data-lang-key="stages_corvara_desc1">Corvara non è una settimana di allenamenti da aggiungere al calendario. È un percorso intensivo in cui ghiaccio, preparazione atletica, tecnica, coreografia e lavoro individuale e di squadra si fondono in un unico progetto di crescita.</p>
+      <p class="corvara-desc" data-lang-key="stages_corvara_desc2">Ogni atleta viene accompagnato a superare abitudini, limiti e automatismi, con coach qualificati, competenze internazionali e un focus speciale sul Synchro 9.</p>
+      <p class="corvara-desc" style="color:rgba(255,255,255,.9);font-style:italic;" data-lang-key="stages_corvara_desc3">Non si viene a Corvara per mantenersi in forma.<br>Si viene per tornare diversi.</p>
+
+      <div class="corvara-coach-grid">
+        <div class="corvara-coach-box">
+          <div class="corvara-coach-label" data-lang-key="stages_corvara_guest_lbl">Special Guest · Finlandia</div>
+          <div class="corvara-coach-name">Milja Sarkkinen</div>
+          <div class="corvara-coach-role" data-lang-key="stages_corvara_milja_role">Coreografia e visione</div>
+        </div>
+        <div class="corvara-coach-box">
+          <div class="corvara-coach-label blue" data-lang-key="stages_corvara_psk_lbl">Power Skating</div>
+          <div class="corvara-coach-name">Cristina Pastorelli</div>
+          <div class="corvara-coach-role" data-lang-key="stages_corvara_cristina_role">TS International</div>
+        </div>
+        <div class="corvara-coach-box">
+          <div class="corvara-coach-label blue" data-lang-key="stages_corvara_pattinaggio_lbl">Tecnica di Pattinaggio</div>
+          <div class="corvara-coach-name">Francesco Riva</div>
+          <div class="corvara-coach-role" data-lang-key="stages_corvara_riva_role">Tecnico · Tecnica di pattinata</div>
+        </div>
+        <div class="corvara-coach-box">
+          <div class="corvara-coach-label blue" data-lang-key="stages_corvara_artistico_lbl">Pattinaggio Artistico</div>
+          <div class="corvara-coach-name">Marina Natalino</div>
+          <div class="corvara-coach-role" data-lang-key="stages_corvara_marina_role">Insegnante di Artistico</div>
+        </div>
+        <div class="corvara-coach-box" style="grid-column:1/-1;">
+          <div class="corvara-coach-label blue" data-lang-key="stages_corvara_prep_lbl">Preparazione Atletica</div>
+          <div class="corvara-coach-name">Alessio Vitali</div>
+          <div class="corvara-coach-role" data-lang-key="stages_corvara_ales_role">Preparatore Atletico · Massofisioterapista</div>
+        </div>
+      </div>
+
+      <div class="corvara-info">
+        <div class="corvara-info-row"><span class="corvara-info-icon">📍</span><span>Corvara in Badia, Alta Badia (BZ)</span></div>
+        <div class="corvara-info-row"><span class="corvara-info-icon">📅</span><span>12 – 26 Luglio 2026 · 2 settimane</span></div>
+        <div class="corvara-info-row"><span class="corvara-info-icon">👥</span><span data-lang-key="stages_corvara_posti_info">Posti limitati · focus Synchro 9</span></div>
+        <div class="corvara-info-row"><span class="corvara-info-icon">✉️</span><span>info@ladybirds.it</span></div>
+      </div>
+      <a href="mailto:info@ladybirds.it?subject=Summer Camp Corvara 2026" class="btn-corvara" data-lang-key="stages_corvara_btn">Richiedi informazioni →</a>
+    </div>
+  </div>
+
+  <!-- CTA BANNER -->
+  <div class="cta-banner" style="background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);border:none;padding:3rem 2.5rem;position:relative;overflow:hidden;">
+    <div style="position:absolute;top:-60px;right:-60px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(201,162,39,.15) 0%,transparent 70%);pointer-events:none;"></div>
+    <div style="position:relative;z-index:1;">
+      <div style="font-size:.58rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem;" data-lang-key="stages_cta_kicker">Prossimi stage</div>
+      <h3 style="font-family:var(--fd);font-size:1.8rem;color:#fff;margin-bottom:.7rem;" data-lang-key="stages_cta_h3">Sei interessato a sapere in anticipo<br>i prossimi stage?</h3>
+      <p style="font-size:.9rem;color:rgba(255,255,255,.65);margin-bottom:1.8rem;max-width:560px;margin-left:auto;margin-right:auto;line-height:1.7;" data-lang-key="stages_cta_p">Tieni d'occhio la pagina News e rimani aggiornato. I posti si esauriscono in fretta. Non perdere le prossime occasioni.</p>
+      <div class="cta-btns">
+        <a href="news.html" class="btn-corvara" style="background:var(--gold);color:var(--navy);" data-lang-key="stages_cta_news_btn">Vai alle News →</a>
+        <a href="https://wa.me/393389362018?text=Ciao,%20vorrei%20essere%20aggiornato%20sui%20prossimi%20stage%20Ladybirds" target="_blank" class="btn-corvara" style="background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.35);" data-lang-key="stages_cta_wa_btn">Scrivici su WhatsApp</a>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-top">
+    <div>
+      <img src="img/logo-ladybirds.jpg" alt="Ladybirds Milano Synchro Academy" style="height:56px;width:auto;display:block;margin-bottom:.8rem;border-radius:4px;">
+      <div class="ft-sub" data-lang-key="footer_sub">Milano Synchro Academy A.S.D.</div>
+      <div class="ft-cf">CF 97846210157 · <span data-lang-key="footer_cf_suffix">Dona il 5×1000</span></div>
+    </div>
+    <div class="ft-nav">
+      <div class="ft-col">
+        <h5 data-lang-key="footer_pagine">Pagine</h5>
+        <ul>
+          <li><a href="index.html#home">Home</a></li>
+          <li><a href="index.html#staff">Staff</a></li>
+          <li><a href="index.html#teams">Teams 2026–2027</a></li>
+          <li><a href="index.html#risultati">Risultati Gare</a></li>
+          <li><a href="stages.html">Stage &amp; Camp</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h5 data-lang-key="footer_piste">Piste</h5>
+        <ul>
+          <li><a href="#">Accademia del Ghiaccio, San Donato</a></li>
+          <li><a href="https://www.fisg.it/al-via-il-cantiere-della-fiera-ice-arena-fisg-e-fondazione-fiera-milano-danno-forma-alla-legacy-di-milano-cortina-2026/" target="_blank">Fiera Ice Arena, Rho</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h5 data-lang-key="footer_competizioni">Competizioni</h5>
+        <ul>
+          <li><a href="https://www.milanoeastertrophy.it" target="_blank">Milano Easter Trophy ↗</a></li>
+          <li><a href="https://www.fisg.it/calendario-sincronizzato/" target="_blank">Calendario Gare FISG ↗</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h5 data-lang-key="footer_contatti">Contatti</h5>
+        <ul>
+          <li><a href="mailto:info@ladybirds.it">info@ladybirds.it</a></li>
+          <li><a href="https://wa.me/393389362018" target="_blank">WhatsApp ↗</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="ft-bot">
+    <div class="ft-copy" data-lang-key="footer_copy">© 2026 Ladybirds Milano Synchro Academy A.S.D. · Tutti i diritti riservati</div>
+    <div class="socials">
+      <a href="https://www.instagram.com/teamladybirds_milano_ita/" class="s-btn" target="_blank" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <a href="https://www.facebook.com/566344623425742" class="s-btn" target="_blank" aria-label="Facebook">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+      </a>
+      <a href="https://wa.me/393389362018" class="s-btn" target="_blank" aria-label="WhatsApp">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+      </a>
+      <a href="mailto:info@ladybirds.it" class="s-btn" aria-label="Email">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script>
+function toggleNav() { document.getElementById('mobileNav').classList.toggle('open'); }
+function closeNav() { document.getElementById('mobileNav').classList.remove('open'); }
+</script>
+<script src="lang.js"></script>
+</body>
+</html>
