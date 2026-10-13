@@ -86,6 +86,11 @@ nav{background:var(--navy);display:flex;align-items:center;justify-content:space
 .obl-alt{background:#2e7d6b;color:#fff}
 .obl-cor{background:#5a3e99;color:#fff}
 .prod-price{font-weight:800;color:var(--navy);font-size:.95rem}
+.obl-badge.obl-tutti{background:#c9a227;color:#fff}
+.prod-price.saldo{color:#d62839}
+.prezzo-vecchio{text-decoration:line-through;color:#8a94a6;font-weight:600;font-size:.85rem;margin-right:.45rem}
+.flash-saldo{display:inline-block;background:#d62839;color:#fff;font-size:.66rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:.15rem .5rem;border-radius:4px;margin-left:.5rem;vertical-align:middle;animation:flashSaldo 1.4s ease-in-out infinite}
+@keyframes flashSaldo{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.75;transform:scale(1.08)}}
 .prod-note{font-size:.73rem;color:var(--sub);margin-top:.15rem;font-style:italic}
 .prod-stock{font-size:.72rem;background:#fff3cd;color:#856404;border-radius:3px;padding:.1rem .4rem;display:inline-block;margin-top:.2rem}
 
@@ -329,11 +334,12 @@ const CATS = [
   {
     id:'gara', label:'Abbigliamento da Gara',
     items:[
-      { id:'giacchino-gara',  name:'Giacchino ghiaccio GARE',        stars:'★',   price:75, img:'img/divise/giacchino-gara.jpg', sizes:['XS','S','M','L','XL','XXL'] },
-      { id:'leggings-gara',   name:'Leggings GARA',                  stars:'★',   price:45, img:'img/divise/leggings-gara.jpg',  sizes:['XS','S','M','L','XL','XXL'] },
-      { id:'canotta-ice',     name:'Ice ITALIA BIANCA / NERA',       stars:'★',   price:20, img:'img/divise/ice-italia.jpg',     sizes:['XS','S','M','L'], note:'Indicare colore (BIANCA o NERA)' },
-      { id:'collant-carne',   name:'Collant GARA Nymphea – carne',   stars:'★ ★★', price:14, img:'img/divise/collant.jpg',        sizes:['8-10 anni','10-12 anni','S/M','L/XL'] },
-      { id:'collant-nero',    name:'Collant GARA Nymphea – nero',    stars:'★ ★★', price:14, img:'img/divise/collant.jpg',        sizes:['8-10 anni','10-12 anni','S/M','L/XL'] },
+      { id:'giacchino-gara',  name:'Giacchino ghiaccio GARE',        stars:'JSA',   price:75, img:'img/divise/giacchino-gara.jpg', sizes:['XS','S','M','L','XL','XXL'] },
+      { id:'leggings-gara',   name:'Leggings GARA',                  stars:'JSA',   price:45, img:'img/divise/leggings-gara.jpg',  sizes:['XS','S','M','L','XL','XXL'] },
+      { id:'canotta-ice-bianca', name:'Ice ITALIA BIANCA',          stars:'★',   price:20, img:'img/divise/ice-italia.jpg',     sizes:['XS','S','M','L'] },
+      { id:'canotta-ice-nera',   name:'Ice ITALIA NERA',            stars:'★',   price:20, img:'img/divise/ice-italia.jpg',     sizes:['XS','S','M','L'] },
+      { id:'collant-carne',   name:'Collant GARA Nymphea – carne',   stars:'★ ★★ ★★★', price:14, img:'img/divise/collant.jpg',        sizes:['8-10 anni','10-12 anni','S/M','L/XL'] },
+      { id:'collant-nero',    name:'Collant GARA Nymphea – nero',    stars:'★ ★★ ★★★', price:14, img:'img/divise/collant.jpg',        sizes:['8-10 anni','10-12 anni','S/M','L/XL'] },
     ]
   },
   {
@@ -342,14 +348,14 @@ const CATS = [
       { id:'leggings-all',    name:'Leggings allenamento',            stars:'★★ ★★★', price:40, img:'img/divise/leggings-all.jpg',     sizes:['XS','S','M','L','XL'] },
       { id:'maglia-bianca',   name:'Maglietta mc BIANCA',             stars:'★ ★★ ★★★', price:12, img:'img/divise/maglietta-bianca.jpg', sizes:['XS','S','M','L','XL'] },
       { id:'maglia-nera',     name:'Maglietta mc NERA',               stars:'★ ★★ ★★★', price:12, img:'img/divise/maglietta-nera.jpg',   sizes:['XS','S','M','L','XL'] },
-      { id:'pantaloncino',    name:'Pantaloncino corto ginnastica',   stars:'★',   price:12, img:'img/divise/pantaloncino.jpg',     sizes:['XS','S','M','L','XL'] },
-      { id:'felpa-all',       name:'Felpa allenamento',               stars:'★★ ★★★', price:30, img:'img/divise/felpa-corsi.jpg',      sizes:['XS','S','M','XL'], note:'Obbligatorio Prejuvenile e Corsi Avviamento' },
+      { id:'pantaloncino',    name:'Pantaloncino corto ginnastica',   stars:'★ ★★ ★★★',   price:12, img:'img/divise/pantaloncino.jpg',     sizes:['XS','S','M','L','XL'] },
+      { id:'felpa-all',       name:'Felpa allenamento',               stars:'★★ ★★★', price:30, img:'img/divise/felpa-corsi.jpg',      sizes:['XS','S','M','L','XL'], note:'Obbligatorio Prejuvenile e Corsi Avviamento' },
       { id:'pile-lunga',      name:'Pile allenamento manica lunga',   stars:'',    price:40, img:'img/divise/pile-lunga.jpg',       sizes:['XS','S','M','L','XL'] },
       { id:'pile-senza',      name:'Pile senza maniche',              stars:'',    price:35, img:'img/divise/pile-senza.jpg',       sizes:['XS','S','M','L','XL'] },
       { id:'giubbotto-inv',   name:'Giubbotto invernale',             stars:'★ ★★ ★★★', price:60, img:'img/divise/giubbotto-inv.jpg',    sizes:['XS','S','M','L','XL'] },
-      { id:'canotta-new',     name:'Canotta Italia new',              stars:'',    price:20, img:'img/divise/canotta.jpg',          sizes:['XS','S','M','L'], note:'Disponibile da novembre', stock:'Disponibile da novembre' },
-      { id:'pile-stock-ml',   name:'Pile vecchio stock M/L',          stars:'',    price:20, img:'img/divise/pile-lunga.jpg',       sizes:['XS','M'], note:'Solo allenamento', stock:'Fino a esaurimento' },
-      { id:'pile-stock-sm',   name:'Pile vecchio stock S/M',          stars:'',    price:15, img:'img/divise/pile-lunga.jpg',       sizes:['S','M','L'], note:'Solo allenamento', stock:'Fino a esaurimento' },
+      { id:'canotta-new',     name:'Canotta Italia new',              stars:'',    price:5, oldPrice:12, img:'img/divise/canotta.jpg',          sizes:['12-14','S','M','L','XL'], note:'Canotta ginnastica', stock:'Fino a esaurimento' },
+      { id:'pile-stock-ml',   name:'Pile vecchio stock M/L',          stars:'',    price:20, oldPrice:40, img:'img/divise/pile-lunga.jpg',       sizes:['XS','S','M','L','XL'], note:'Solo allenamento', stock:'Fino a esaurimento' },
+      { id:'pile-stock-sm',   name:'Pile vecchio stock S/M',          stars:'',    price:15, oldPrice:35, img:'img/divise/pile-lunga.jpg',       sizes:['XS','S','M','L','XL'], note:'Solo allenamento', stock:'Fino a esaurimento' },
     ]
   },
   {
@@ -357,7 +363,7 @@ const CATS = [
     items:[
       { id:'pannetto',        name:'Pannetto lame',                           stars:'',  price:3,  img:'img/divise/pannetto-lame.jpg',  sizes:null },
       { id:'coprilama',       name:'Coprilama pile',                          stars:'',  price:10, img:'img/divise/coprilama.jpg',       sizes:null, note:'Nome opzionale +€3,00' },
-      { id:'borraccia',       name:'Borraccia con logo e personaliz. nome',   stars:'★', price:18, img:'img/divise/borraccia.jpg',       sizes:null },
+      { id:'borraccia',       name:'Borraccia con logo e personaliz. nome',   stars:'★ ★★ ★★★', price:18, img:'img/divise/borraccia.jpg',       sizes:null },
       { id:'scaldamuscolo',   name:'Scaldamuscolo',                           stars:'',  price:12, img:'img/divise/scaldamuscolo.jpg',   sizes:null },
       { id:'cavigliera',      name:'Cavigliera gel',                          stars:'',  price:20, img:'img/divise/cavigliera.jpg',      sizes:null },
       { id:'fascia',          name:'Fascia con logo',                         stars:'',  price:15, img:'img/divise/fascia.jpg',          sizes:null },
@@ -369,9 +375,11 @@ const CATS = [
   {
     id:'borse', label:'Borse e Trolley',
     items:[
-      { id:'trolley-grigio',  name:'Trolley grigio',  stars:'★',  price:35, img:'img/divise/trolley-grigio.jpg', sizes:null },
+      { id:'trolley-grigio',  name:'Trolley grigio',  stars:'JSA',  price:35, img:'img/divise/trolley-grigio.jpg', sizes:null },
       { id:'trolley-nero',    name:'Trolley nero',    stars:'★★', price:40, img:'img/divise/trolley-stage.jpg',  sizes:null },
-      { id:'zainetto',        name:'Zainetto',        stars:'★ ★★', price:20, img:'img/divise/zainetto.jpg',       sizes:null },
+      { id:'zainetto',        name:'Zainetto',        stars:'★ ★★ ★★★', price:20, img:'img/divise/zainetto.jpg',       sizes:null },
+      { id:'sacca-scarpe',    name:'Sacca scarpe',    stars:'',   price:5,  img:'img/divise/sacca-scarpe.jpg',   sizes:null },
+      { id:'sacca-tela',      name:'Sacca tela',      stars:'',   price:5,  img:'img/divise/sacca-tela.jpg',     sizes:null },
     ]
   }
 ];
@@ -411,6 +419,8 @@ CATS.forEach(cat => {
       if(!stars) return '';
       const parts = stars.split(' ');
       let b = '<span class="prod-stars">';
+      if(parts.includes('★') && parts.includes('★★') && parts.includes('★★★')) return '<span class="prod-stars"><span class="obl-badge obl-tutti">OBBLIGATORIO PER TUTTI</span></span>';
+      if(parts.includes('JSA')) b += '<span class="obl-badge obl-sjn">JUN · SEN · ADVANCED</span>';
       if(parts.includes('★'))   b += '<span class="obl-badge obl-sjn">SEN/JUN</span>';
       if(parts.includes('★★'))  b += '<span class="obl-badge obl-alt">ALTRE</span>';
       if(parts.includes('★★★')) b += '<span class="obl-badge obl-cor">CORSI</span>';
@@ -418,7 +428,7 @@ CATS.forEach(cat => {
     }
     info.innerHTML = `
       <div class="prod-name">${item.name}${item.stars ? renderBadges(item.stars) : ''}</div>
-      <div class="prod-price">€ ${item.price.toFixed(2).replace('.',',')}</div>
+      <div class="prod-price${item.oldPrice ? ' saldo' : ''}">${item.oldPrice ? `<span class="prezzo-vecchio">€ ${item.oldPrice.toFixed(2).replace('.',',')}</span>` : ''}€ ${item.price.toFixed(2).replace('.',',')}${item.oldPrice ? `<span class="flash-saldo">-${Math.round((1-item.price/item.oldPrice)*100)}%</span>` : ''}</div>
       ${item.note ? `<div class="prod-note">${item.note}</div>` : ''}
       ${item.stock ? `<div class="prod-stock">⚠ ${item.stock}</div>` : ''}
     `;
