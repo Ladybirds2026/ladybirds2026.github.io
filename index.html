@@ -87,7 +87,7 @@
 
     /* ═══ HERO ═══ */
     .hero {
-      margin-top: 0;  /* compensato dal banner borsa di studio */
+      margin-top: 44px;  /* spazio per banner borsa di studio fixed */
       position: relative; overflow: hidden;
       min-height: 88vh;
       display: flex; align-items: center;
@@ -522,7 +522,7 @@
       nav ul { display:none; }
       .nav-burger { display:flex; }
       .mobile-nav.open { display:block; }
-      .hero { margin-top:64px; grid-template-columns:1fr; padding:3rem 1.5rem; min-height:auto; }
+      .hero { margin-top:0; grid-template-columns:1fr; padding:3rem 1.5rem; min-height:auto; }
       .hero-stats { grid-template-columns:1fr 1fr; }
       .section { padding:3rem 1.5rem; }
       .intro-grid, .iscr-grid, .bridge-inner, .news-layout, .risultati-grid { grid-template-columns:1fr; gap:2rem; }
@@ -650,7 +650,7 @@
 
 
 <!-- BORSA DI STUDIO FLASH BANNER -->
-<div style="margin-top:98px;background:linear-gradient(90deg,#8b0000,#c0392b,#8b0000);background-size:200% 100%;animation:bds-slide 3s linear infinite;padding:.75rem 1.5rem;text-align:center;position:relative;z-index:10;">
+<div style="position:fixed;top:98px;left:0;right:0;z-index:299;background:linear-gradient(90deg,#8b0000,#c0392b,#8b0000);background-size:200% 100%;animation:bds-slide 3s linear infinite;padding:.65rem 1.5rem;text-align:center;">
   <style>
     @keyframes bds-slide{0%{background-position:0% 0%}100%{background-position:200% 0%}}
     @keyframes bds-pulse{0%,100%{opacity:1}50%{opacity:.7}}
