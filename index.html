@@ -87,7 +87,7 @@
 
     /* ═══ HERO ═══ */
     .hero {
-      margin-top: 44px;  /* spazio per banner borsa di studio fixed */
+      margin-top: 98px;  /* 34px topbar + 64px nav */
       position: relative; overflow: hidden;
       min-height: 88vh;
       display: flex; align-items: center;
@@ -522,7 +522,7 @@
       nav ul { display:none; }
       .nav-burger { display:flex; }
       .mobile-nav.open { display:block; }
-      .hero { margin-top:0; grid-template-columns:1fr; padding:3rem 1.5rem; min-height:auto; }
+      .hero { margin-top:64px; grid-template-columns:1fr; padding:3rem 1.5rem; min-height:auto; }
       .hero-stats { grid-template-columns:1fr 1fr; }
       .section { padding:3rem 1.5rem; }
       .intro-grid, .iscr-grid, .bridge-inner, .news-layout, .risultati-grid { grid-template-columns:1fr; gap:2rem; }
@@ -648,19 +648,6 @@
   </div>
 </div>
 
-
-<!-- BORSA DI STUDIO FLASH BANNER -->
-<div style="position:fixed;top:98px;left:0;right:0;z-index:299;background:linear-gradient(90deg,#8b0000,#c0392b,#8b0000);background-size:200% 100%;animation:bds-slide 3s linear infinite;padding:.65rem 1.5rem;text-align:center;">
-  <style>
-    @keyframes bds-slide{0%{background-position:0% 0%}100%{background-position:200% 0%}}
-    @keyframes bds-pulse{0%,100%{opacity:1}50%{opacity:.7}}
-  </style>
-  <a href="news.html" style="text-decoration:none;display:inline-flex;align-items:center;gap:.9rem;flex-wrap:wrap;justify-content:center;">
-    <span style="background:#fff;color:#8b0000;font-size:.6rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;padding:.2rem .6rem;border-radius:3px;animation:bds-pulse 1.5s ease-in-out infinite;">🎓 NUOVO</span>
-    <span style="color:#fff;font-size:.85rem;font-weight:700;letter-spacing:.5px;">10 Borse di Studio disponibili — candidati entro il 31 Ottobre 2026</span>
-    <span style="color:#fff;font-size:.75rem;font-weight:800;border:1.5px solid rgba(255,255,255,.6);padding:.2rem .7rem;border-radius:3px;">Scopri →</span>
-  </a>
-</div>
 
 <!-- HOME / HERO -->
 <section class="hero" id="home">
