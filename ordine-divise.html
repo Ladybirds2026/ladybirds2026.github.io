@@ -165,11 +165,26 @@ footer strong{color:var(--gold)}
 @media(max-width:600px){
   .form-grid{grid-template-columns:1fr}
   .form-field.full{grid-column:span 1}
-  .legend{gap:1rem}
-  .hero h1{font-size:1.4rem}
-  .total-bar{top:56px}
-  .sizes-row{gap:.4rem}
-  .size-cell input[type=number]{width:40px}
+  .legend{gap:.7rem;font-size:.75rem}
+  .hero{padding:2rem 1rem 1.5rem}
+  .hero h1{font-size:1.2rem}
+  .total-bar{top:56px;padding:.6rem 1rem}
+  .total-bar .amount{font-size:1.2rem}
+
+  /* prodotti: immagine sopra, info sotto */
+  .prod-row{flex-direction:column;gap:.6rem;padding:.9rem 1rem}
+  .prod-img{width:100%;height:160px;border-radius:6px}
+  .prod-info{width:100%}
+
+  /* taglie: griglia a 2 colonne */
+  .sizes-row{display:grid;grid-template-columns:repeat(2,1fr);gap:.5rem}
+  .size-cell{width:100%}
+  .size-ctrl{width:100%}
+  .size-ctrl button{flex:0 0 36px;width:36px}
+  .size-ctrl input[type=number]{flex:1;width:auto;min-width:0}
+
+  /* qty senza taglia: non spingere a destra */
+  .qty-wrap{margin-left:0;align-items:flex-start}
 }
 </style>
   <meta property="og:title" content="Ladybirds Milano Synchro Academy" />
